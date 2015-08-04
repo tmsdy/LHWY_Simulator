@@ -42,7 +42,7 @@ public class Form1 : System.Windows.Forms.Form
     public System.Threading.Thread thread;
 
     private string sIMEI = "";
-    private int iMaxPktLenth = 256;
+    private int iMaxPktLenth = 512;
     private int iKeepAliveInterval = 60000;
     private int iLonPrefix = 11352;
     private int iLatPrefix = 2234;
@@ -300,7 +300,7 @@ public class Form1 : System.Windows.Forms.Form
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(78, 65);
             this.button5.TabIndex = 26;
-            this.button5.Text = "自动发送";
+            this.button5.Text = "发送\r\n\r\n位置报文";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -439,7 +439,7 @@ public class Form1 : System.Windows.Forms.Form
             this.Controls.Add(this.textBox3);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "力豪模拟登录";
+            this.Text = "力豪模拟登录 V1.0.1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
@@ -738,7 +738,7 @@ public class Form1 : System.Windows.Forms.Form
         sIMEI = "111111111111111";
         if (radioButton1.Checked)
         {
-            this.Text = "力豪模拟登录   当前登录：111111111111111";
+            this.Text = "力豪模拟登录   当前登录：111";
         }
       
     }
@@ -765,7 +765,7 @@ public class Form1 : System.Windows.Forms.Form
     private void radioButton4_CheckedChanged(object sender, EventArgs e)
     {
         sIMEI = "111111111111114";
-        if (radioButton3.Checked)
+        if (radioButton4.Checked)
         {
             this.Text = "力豪模拟登录   当前登录：114";
         }
