@@ -16,6 +16,7 @@ namespace ChatClient
 	/// </summary>
 public class Form1 : System.Windows.Forms.Form
 {
+    private string sVer = "力豪模拟登录 V1.0.2     ";
     private IContainer components = null;
     static IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
 	private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
@@ -61,6 +62,7 @@ public class Form1 : System.Windows.Forms.Form
     private RadioButton radioButton4;
     private TrackBar trackBar1;
     private Button button6;
+    private CheckBox checkBox2;
     private Label label1;
 	public Form1()
 	{
@@ -144,6 +146,7 @@ public class Form1 : System.Windows.Forms.Form
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button6 = new System.Windows.Forms.Button();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -407,10 +410,22 @@ public class Form1 : System.Windows.Forms.Form
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(422, 35);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(48, 16);
+            this.checkBox2.TabIndex = 38;
+            this.checkBox2.Text = "脱落";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
             this.ClientSize = new System.Drawing.Size(767, 465);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.radioButton4);
             this.Controls.Add(this.label6);
@@ -439,7 +454,7 @@ public class Form1 : System.Windows.Forms.Form
             this.Controls.Add(this.textBox3);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "力豪模拟登录 V1.0.1";
+            this.Text =  sVer;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
@@ -515,10 +530,13 @@ public class Form1 : System.Windows.Forms.Form
  
         //低电压
         if (checkBox3.Checked)
-            sAlterParam =  ",02,zh-cn,11#";
+            sAlterParam =  ",02,zh-cn,11";
         //SOS
         else if (checkBox4.Checked)
-            sAlterParam =  ",01,zh-cn,11#";
+            sAlterParam =  ",01,zh-cn,11";
+        //脱落报警
+        else if (checkBox2.Checked)
+            sAlterParam = ",03,zh-cn,11";
 
         return sAlterParam;
 
@@ -738,7 +756,7 @@ public class Form1 : System.Windows.Forms.Form
         sIMEI = "111111111111111";
         if (radioButton1.Checked)
         {
-            this.Text = "力豪模拟登录   当前登录：111";
+            this.Text = sVer + "当前登录：111";
         }
       
     }
@@ -748,7 +766,7 @@ public class Form1 : System.Windows.Forms.Form
         sIMEI = "111111111111112";
         if (radioButton2.Checked)
         {
-            this.Text = "力豪模拟登录   当前登录：112";
+            this.Text = sVer + "当前登录：112";
         }
 
     }
@@ -758,7 +776,7 @@ public class Form1 : System.Windows.Forms.Form
         sIMEI = "111111111111113";
         if (radioButton3.Checked)
         {
-            this.Text = "力豪模拟登录   当前登录：113";
+            this.Text = sVer + "当前登录：113";
         }
     }
 
@@ -767,7 +785,7 @@ public class Form1 : System.Windows.Forms.Form
         sIMEI = "111111111111114";
         if (radioButton4.Checked)
         {
-            this.Text = "力豪模拟登录   当前登录：114";
+            this.Text = sVer + "当前登录：114";
         }
     }
   
@@ -780,7 +798,7 @@ public class Form1 : System.Windows.Forms.Form
         radioButton4.Checked = false;
 
         sIMEI = this.textBox1.Text;
-            this.Text = "力豪模拟登录   当前登录：" + this.textBox1.Text;
+            this.Text = sVer + "当前登录：" + this.textBox1.Text;
     }
     private void checkBox1_CheckedChanged(object sender, EventArgs e)
     {
@@ -892,7 +910,7 @@ public class Form1 : System.Windows.Forms.Form
 
                 string sPktPrefix = "";
                 string sPktSuffix = "";
-                if(checkBox3.Checked || checkBox4.Checked)
+                if (checkBox2.Checked || checkBox3.Checked || checkBox4.Checked)
                 {
                         sPktPrefix = "SWAP10";
                         sPktSuffix = GetAlterParam() + "#";                
@@ -1000,6 +1018,7 @@ public class Form1 : System.Windows.Forms.Form
         if (checkBox3.Checked)
         {
             checkBox4.Checked = false;
+            checkBox2.Checked = false;
         }
     }
 
@@ -1008,8 +1027,19 @@ public class Form1 : System.Windows.Forms.Form
         if (checkBox4.Checked)
         {
             checkBox3.Checked = false;
+            checkBox2.Checked = false;
         }
     }
+
+    private void checkBox2_CheckedChanged(object sender, EventArgs e)
+    {
+        if (checkBox2.Checked)
+        {
+            checkBox3.Checked = false;
+            checkBox4.Checked = false;
+        }
+    }
+     
 
     private void button6_Click(object sender, EventArgs e)
     {
@@ -1028,7 +1058,7 @@ public class Form1 : System.Windows.Forms.Form
         catch (Exception ee)
         { statusBar1.Text = ("发送关机报文 " + ee.Message + "\r\n"); }
     }
-     
+
 
 
 
