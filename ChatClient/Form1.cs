@@ -63,6 +63,7 @@ public class Form1 : System.Windows.Forms.Form
     private TrackBar trackBar1;
     private Button button6;
     private CheckBox checkBox2;
+    private CheckBox checkBox5;
     private Label label1;
 	public Form1()
 	{
@@ -147,6 +148,7 @@ public class Form1 : System.Windows.Forms.Form
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button6 = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -162,26 +164,30 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // textBox2
             // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox2.Location = new System.Drawing.Point(12, 67);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(743, 291);
+            this.textBox2.Size = new System.Drawing.Size(731, 291);
             this.textBox2.TabIndex = 2;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(665, 378);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(661, 378);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(78, 65);
             this.button2.TabIndex = 4;
-            this.button2.Text = "Send";
+            this.button2.Text = "发送\r\n\r\n自定义报文";
             this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.SendBtn_click);
             // 
             // button3
             // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button3.Location = new System.Drawing.Point(543, 378);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(78, 65);
@@ -191,6 +197,8 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // statusBar1
             // 
+            this.statusBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.statusBar1.Dock = System.Windows.Forms.DockStyle.None;
             this.statusBar1.Location = new System.Drawing.Point(0, 449);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Size = new System.Drawing.Size(767, 16);
@@ -199,6 +207,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Location = new System.Drawing.Point(340, 378);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(78, 65);
@@ -246,10 +255,10 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(12, 67);
+            this.textBox3.Location = new System.Drawing.Point(771, 67);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(670, 51);
+            this.textBox3.Size = new System.Drawing.Size(513, 291);
             this.textBox3.TabIndex = 6;
             this.textBox3.Visible = false;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
@@ -268,6 +277,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // button4
             // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button4.Location = new System.Drawing.Point(12, 378);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(80, 65);
@@ -299,6 +309,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // button5
             // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button5.Location = new System.Drawing.Point(234, 378);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(78, 65);
@@ -309,6 +320,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.Location = new System.Drawing.Point(121, 372);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 16);
@@ -344,6 +356,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // textBox4
             // 
+            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox4.Location = new System.Drawing.Point(123, 420);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
@@ -353,6 +366,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // trackBar2
             // 
+            this.trackBar2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.trackBar2.LargeChange = 3;
             this.trackBar2.Location = new System.Drawing.Point(107, 390);
             this.trackBar2.Name = "trackBar2";
@@ -362,6 +376,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(172, 425);
             this.label5.Name = "label5";
@@ -402,6 +417,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // button6
             // 
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button6.Location = new System.Drawing.Point(441, 378);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(78, 65);
@@ -421,10 +437,23 @@ public class Form1 : System.Windows.Forms.Form
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(665, 40);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(84, 16);
+            this.checkBox5.TabIndex = 39;
+            this.checkBox5.Text = "自定义发送";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            this.ClientSize = new System.Drawing.Size(767, 465);
+            this.ClientSize = new System.Drawing.Size(751, 465);
+            this.ControlBox = false;
+            this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.radioButton4);
@@ -449,12 +478,11 @@ public class Form1 : System.Windows.Forms.Form
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text =  sVer;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
@@ -1057,6 +1085,23 @@ public class Form1 : System.Windows.Forms.Form
         }
         catch (Exception ee)
         { statusBar1.Text = ("发送关机报文 " + ee.Message + "\r\n"); }
+    }
+
+    private void checkBox5_CheckedChanged(object sender, EventArgs e)
+    {
+        if (checkBox5.Checked)
+        {
+            button2.Visible = true;
+            textBox3.Visible = true;
+            this.FindForm().Size = new Size(1300, 700);
+        }
+        else
+        {
+            button2.Visible = false;
+            textBox3.Visible = false;
+            this.FindForm().Size = new Size(786, 504);
+            
+        }
     }
 
 
