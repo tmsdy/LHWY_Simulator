@@ -7,8 +7,8 @@ using System.Data;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-
-
+using System.IO;
+using System.Text;
 namespace ChatClient
 {
 	/// <summary>
@@ -16,10 +16,12 @@ namespace ChatClient
 	/// </summary>
 public class Form1 : System.Windows.Forms.Form
 {
-    private string sVer = "力豪模拟登录 V1.0.2     ";
+    private string sVer = "力豪模拟登录 V1.0.3     ";
     private IContainer components = null;
+    //static IPAddress HostIP = IPAddress.Parse("127.0.0.1"); //14.152.107.119
+    //private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
     static IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
-	private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
+    private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
 	private Socket ChatSocket;
 	private bool flag=true;
 	private System.Windows.Forms.TextBox textBox1;
@@ -42,6 +44,7 @@ public class Form1 : System.Windows.Forms.Form
     private Button button4;
     public System.Threading.Thread thread;
 
+    public double iVoiceMaxPktLenth = 900.00;
     private string sIMEI = "";
     private int iMaxPktLenth = 512;
     private int iKeepAliveInterval = 60000;
@@ -64,6 +67,8 @@ public class Form1 : System.Windows.Forms.Form
     private Button button6;
     private CheckBox checkBox2;
     private CheckBox checkBox5;
+    private Button button7;
+    private CheckBox checkBox6;
     private Label label1;
 	public Form1()
 	{
@@ -149,6 +154,8 @@ public class Form1 : System.Windows.Forms.Form
             this.button6 = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -171,15 +178,15 @@ public class Form1 : System.Windows.Forms.Form
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(731, 291);
+            this.textBox2.Size = new System.Drawing.Size(731, 488);
             this.textBox2.TabIndex = 2;
             // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(661, 378);
+            this.button2.Location = new System.Drawing.Point(656, 575);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(78, 65);
+            this.button2.Size = new System.Drawing.Size(78, 59);
             this.button2.TabIndex = 4;
             this.button2.Text = "发送\r\n\r\n自定义报文";
             this.button2.Visible = false;
@@ -188,9 +195,11 @@ public class Form1 : System.Windows.Forms.Form
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(543, 378);
+            this.button3.Font = new System.Drawing.Font("宋体", 14F);
+            this.button3.ForeColor = System.Drawing.Color.Red;
+            this.button3.Location = new System.Drawing.Point(454, 575);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(78, 65);
+            this.button3.Size = new System.Drawing.Size(78, 59);
             this.button3.TabIndex = 5;
             this.button3.Text = "退出";
             this.button3.Click += new System.EventHandler(this.DiscBtn_click);
@@ -199,7 +208,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             this.statusBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.statusBar1.Dock = System.Windows.Forms.DockStyle.None;
-            this.statusBar1.Location = new System.Drawing.Point(0, 449);
+            this.statusBar1.Location = new System.Drawing.Point(0, 646);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Size = new System.Drawing.Size(767, 16);
             this.statusBar1.TabIndex = 11;
@@ -208,9 +217,9 @@ public class Form1 : System.Windows.Forms.Form
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(340, 378);
+            this.button1.Location = new System.Drawing.Point(343, 572);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 65);
+            this.button1.Size = new System.Drawing.Size(78, 28);
             this.button1.TabIndex = 12;
             this.button1.Text = "下线";
             this.button1.UseVisualStyleBackColor = true;
@@ -255,10 +264,13 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(771, 67);
+            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox3.Location = new System.Drawing.Point(225, 67);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(513, 291);
+            this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox3.Size = new System.Drawing.Size(513, 488);
             this.textBox3.TabIndex = 6;
             this.textBox3.Visible = false;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
@@ -278,7 +290,7 @@ public class Form1 : System.Windows.Forms.Form
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(12, 378);
+            this.button4.Location = new System.Drawing.Point(12, 571);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(80, 65);
             this.button4.TabIndex = 20;
@@ -310,9 +322,9 @@ public class Form1 : System.Windows.Forms.Form
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button5.Location = new System.Drawing.Point(234, 378);
+            this.button5.Location = new System.Drawing.Point(234, 575);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(78, 65);
+            this.button5.Size = new System.Drawing.Size(78, 59);
             this.button5.TabIndex = 26;
             this.button5.Text = "发送\r\n\r\n位置报文";
             this.button5.UseVisualStyleBackColor = true;
@@ -321,7 +333,7 @@ public class Form1 : System.Windows.Forms.Form
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.Location = new System.Drawing.Point(121, 372);
+            this.label1.Location = new System.Drawing.Point(121, 569);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 16);
             this.label1.TabIndex = 28;
@@ -330,7 +342,7 @@ public class Form1 : System.Windows.Forms.Form
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(541, 40);
+            this.label2.Location = new System.Drawing.Point(513, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 12);
             this.label2.TabIndex = 30;
@@ -339,7 +351,7 @@ public class Form1 : System.Windows.Forms.Form
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(508, 13);
+            this.label3.Location = new System.Drawing.Point(480, 13);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(17, 12);
             this.label3.TabIndex = 31;
@@ -348,7 +360,7 @@ public class Form1 : System.Windows.Forms.Form
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(637, 13);
+            this.label4.Location = new System.Drawing.Point(609, 13);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(17, 12);
             this.label4.TabIndex = 32;
@@ -357,7 +369,7 @@ public class Form1 : System.Windows.Forms.Form
             // textBox4
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox4.Location = new System.Drawing.Point(123, 420);
+            this.textBox4.Location = new System.Drawing.Point(123, 617);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(43, 23);
@@ -368,7 +380,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             this.trackBar2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.trackBar2.LargeChange = 3;
-            this.trackBar2.Location = new System.Drawing.Point(107, 390);
+            this.trackBar2.Location = new System.Drawing.Point(107, 587);
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(104, 45);
             this.trackBar2.TabIndex = 33;
@@ -378,7 +390,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(172, 425);
+            this.label5.Location = new System.Drawing.Point(172, 622);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 12);
             this.label5.TabIndex = 34;
@@ -408,7 +420,7 @@ public class Form1 : System.Windows.Forms.Form
             // trackBar1
             // 
             this.trackBar1.LargeChange = 3;
-            this.trackBar1.Location = new System.Drawing.Point(531, 7);
+            this.trackBar1.Location = new System.Drawing.Point(503, 7);
             this.trackBar1.Maximum = 2;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(104, 45);
@@ -418,9 +430,9 @@ public class Form1 : System.Windows.Forms.Form
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button6.Location = new System.Drawing.Point(441, 378);
+            this.button6.Location = new System.Drawing.Point(343, 606);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(78, 65);
+            this.button6.Size = new System.Drawing.Size(78, 28);
             this.button6.TabIndex = 37;
             this.button6.Text = "关机下线";
             this.button6.UseVisualStyleBackColor = true;
@@ -440,7 +452,7 @@ public class Form1 : System.Windows.Forms.Form
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(665, 40);
+            this.checkBox5.Location = new System.Drawing.Point(655, 13);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(84, 16);
             this.checkBox5.TabIndex = 39;
@@ -448,11 +460,32 @@ public class Form1 : System.Windows.Forms.Form
             this.checkBox5.UseVisualStyleBackColor = true;
             this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(557, 575);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(78, 59);
+            this.button7.TabIndex = 40;
+            this.button7.Text = "打开语音";
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(654, 40);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(84, 16);
+            this.checkBox6.TabIndex = 41;
+            this.checkBox6.Text = "16进制发送";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            this.ClientSize = new System.Drawing.Size(751, 465);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(756, 662);
+            this.Controls.Add(this.checkBox6);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.button6);
@@ -480,7 +513,6 @@ public class Form1 : System.Windows.Forms.Form
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -638,6 +670,22 @@ public class Form1 : System.Windows.Forms.Form
         return true;
 
     }
+
+    private void SendHexPkt(byte[] b)
+    {
+        try
+        {
+             
+            ChatSocket.Send(b, b.Length, 0);
+
+            string str = DateTime.Now.ToString("G");
+            textBox2.AppendText(str + ": ↑" + System.Text.Encoding.Default.GetString(b));
+            textBox2.AppendText("\r\n");
+
+        }
+        catch (Exception ee)
+        { statusBar1.Text = ("发送报文异常 " + ee.Message + "\r\n"); }
+    }
 	private void SendBtn_click(object sender, System.EventArgs e)
 	{
 		try
@@ -679,13 +727,48 @@ public class Form1 : System.Windows.Forms.Form
             string[] str = textBox3.Text.Split('\n');
             for (int i = 0; i < str.Length; i++)
             {
-                str[i] = str[i].Replace("\r", string.Empty);
-           
-                SendPacket(str[i]);
+
+
+                str[i] = str[i].Replace("\r", string.Empty).Replace(" ", string.Empty);
+                //如果是空行则跳过
+                if (str[i] == string.Empty)
+                    continue;
+                //如果是//开头 则跳过
+                if ((str[i][0] == '/')&&(str[i][1] == '/'))
+                    continue;
+                /********************************************/
+                if (checkBox6.Checked == false)
+                {
+                    SendPacket(str[i]);
+                }
+                else
+                {
+                    byte[] bytes = new byte[str[i].Length / 2];
+
+                    for (int j = 0; j < bytes.Length; j++)
+                    {
+                        try
+                        {
+                            // 每两个字符是一个 byte。
+                            bytes[j] = byte.Parse(str[i].Substring(j * 2, 2),
+                            System.Globalization.NumberStyles.HexNumber);
+                            //bytes[j] = Convert.ToByte(str[j].Substring(j * 2, 2).Trim(), 10);   
+                        }
+                        catch
+                        {
+                            throw new ArgumentException("hex is not a valid hex number!", "str[i]");
+                        }
+                    }
+                 
+                
+                    /********************************************/
+                    SendHexPkt(bytes);
+                }
+
                 if (i < (str.Length - 1))
                 {
 
-                    EventSleep(Convert.ToInt32( this.textBox4.Text)); //10秒发一个位置报文
+                    EventSleep(1); //10秒发一个位置报文
             
                 } 
             }
@@ -771,7 +854,12 @@ public class Form1 : System.Windows.Forms.Form
             Application.Exit();
         }
         catch (Exception ee)
-        { statusBar1.Text = ("断开连接 " + ee.Message + "\r\n"); }
+        {
+            statusBar1.Text = ("断开连接 " + ee.Message + "\r\n");
+
+            this.Close();
+            Application.Exit();
+        }
     }
 
     private void textBox3_TextChanged(object sender, EventArgs e)
@@ -1094,13 +1182,92 @@ public class Form1 : System.Windows.Forms.Form
             button2.Visible = true;
             textBox3.Visible = true;
             this.FindForm().Size = new Size(1300, 700);
+            checkBox6.Checked = true;
         }
         else
         {
             button2.Visible = false;
+            textBox3.Text = string.Empty;
             textBox3.Visible = false;
-            this.FindForm().Size = new Size(786, 504);
+            this.FindForm().Size = new Size(786, 700);
             
+        }
+    }
+    private void pringASCII(string s2)
+    {
+        //将ASCII转16进制
+
+        byte[] ba = System.Text.ASCIIEncoding.Default.GetBytes(s2);
+        StringBuilder sb = new StringBuilder();
+        foreach (byte b in ba)
+        {
+            sb.Append(b.ToString("x2") + " ");
+        }
+        textBox3.Text += (sb.ToString());
+
+    }
+    private void button7_Click(object sender, EventArgs e)
+    {
+        checkBox5.Checked = true;
+        button2.Visible = true;
+        textBox3.Visible = true;
+        this.FindForm().Size = new Size(1300, 700);
+        //richTextBox1.AppendText("登录包\r\n");
+        //string sLogin = "SWAP00" + textBox1.Text + "#";
+        //pringASCII(sLogin);
+        //richTextBox1.AppendText("\r\n");
+        OpenFileDialog openFileDialog1 = new OpenFileDialog();
+        //设置打开文件的格式
+        openFileDialog1.Filter = "录音文件(*.amr)|*.amr";
+        if (openFileDialog1.ShowDialog() != DialogResult.OK)
+        {
+            return;
+        }
+        //richTextBox1.Text = string.Empty;
+        //使用“打开”对话框中选择的文件名实例化FileStream对象
+        FileStream myStream = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read);
+        int iStreamLength = (int)myStream.Length;
+        byte[] byteFile = new byte[iStreamLength];
+
+        double dPktPartCount = myStream.Length / iVoiceMaxPktLenth;
+        //一共有iPktPartCount个包
+        int iPktPartCount = Convert.ToInt32(Math.Ceiling(dPktPartCount));
+        int iPktIndex = 0;
+        string sTime = DateTime.Now.ToString("yyyyMMddhhmmss");
+        int iPktLenth = (int)iVoiceMaxPktLenth;
+        string sPktPrefix = string.Empty;
+
+        myStream.Read(byteFile, 0, iStreamLength);
+
+        //关闭当前文件流
+        myStream.Close();
+
+        int j = 0;
+        for (int i = 1; i <= iPktPartCount; i++)
+        {
+            textBox3.Text += ("//一共" + iPktPartCount.ToString() + "个分包，当前第" + i.ToString() + "个分包\r\n");
+            if ((i == iPktPartCount) && (iVoiceMaxPktLenth * i != iStreamLength))
+                iPktLenth = iStreamLength - (int)(iVoiceMaxPktLenth) * (i - 1);
+
+
+            sPktPrefix = "SWAP45," + sIMEI + "," + sTime + "," + iPktPartCount.ToString() +
+                "," + i.ToString() + "," + iPktLenth.ToString() + ",";
+            //richTextBox1.AppendText(sPktPrefix );
+
+            //richTextBox1.AppendText("\r\n");
+            pringASCII(sPktPrefix);
+
+            StringBuilder sb = new StringBuilder();
+         
+            for (j = 0; j < iPktLenth; j++, iPktIndex++)
+            {
+                sb.Append(byteFile[iPktIndex].ToString("x2") + " ");
+            }
+            textBox3.Text += sb.ToString();
+            pringASCII("#");
+            textBox3.Text += ("\r\n");
+            //iPktIndex += iPktLenth;
+
         }
     }
 
