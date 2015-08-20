@@ -16,12 +16,17 @@ namespace ChatClient
 	/// </summary>
 public class Form1 : System.Windows.Forms.Form
 {
-    private string sVer = "力豪模拟登录 V1.0.3     ";
+    private string sVer = "力豪模拟登录 V1.0.4     ";
     private IContainer components = null;
-    //static IPAddress HostIP = IPAddress.Parse("127.0.0.1"); //14.152.107.119
+
+    static IPAddress HostIP = IPAddress.Parse("192.168.100.5"); //14.152.107.119
+    private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
+    //static IPAddress HostIP = IPAddress.Parse("183.39.136.55"); //14.152.107.119
+    //private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
+
+    //static IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
     //private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
-    static IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
-    private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
+ 
 	private Socket ChatSocket;
 	private bool flag=true;
 	private System.Windows.Forms.TextBox textBox1;
@@ -69,6 +74,8 @@ public class Form1 : System.Windows.Forms.Form
     private CheckBox checkBox5;
     private Button button7;
     private CheckBox checkBox6;
+    private TextBox textBox5;
+    private Label label7;
     private Label label1;
 	public Form1()
 	{
@@ -156,6 +163,8 @@ public class Form1 : System.Windows.Forms.Form
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.button7 = new System.Windows.Forms.Button();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -462,6 +471,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // button7
             // 
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button7.Location = new System.Drawing.Point(557, 575);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(78, 59);
@@ -479,10 +489,31 @@ public class Form1 : System.Windows.Forms.Form
             this.checkBox6.Text = "16进制发送";
             this.checkBox6.UseVisualStyleBackColor = true;
             // 
+            // textBox5
+            // 
+            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox5.Location = new System.Drawing.Point(422, 7);
+            this.textBox5.Multiline = true;
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(43, 23);
+            this.textBox5.TabIndex = 42;
+            this.textBox5.Text = "50";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.Location = new System.Drawing.Point(378, 10);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(36, 16);
+            this.label7.TabIndex = 43;
+            this.label7.Text = "电量";
+            // 
             // Form1
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
             this.ClientSize = new System.Drawing.Size(756, 662);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.checkBox6);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.textBox2);
@@ -577,7 +608,7 @@ public class Form1 : System.Windows.Forms.Form
     private string GetGpsParam()
     {
         //SWAP01150716 A2234. 2757 N11351. 8645 E000.1023201000.0009000502000100,460,000,9779,4092#
-        return GetDayMonthYear() + "A" + GetLat() + "N" + GetLon() + "E000.1" + GetHourMinSec() +  "000.0009000502000100,460,000,9779,4092";
+        return GetDayMonthYear() + "A" + GetLat() + "N" + GetLon() + "E000.1" + GetHourMinSec() +  "000.00090005" + Convert.ToInt32(textBox5.Text).ToString("D3")+"00100,460,000,9779,4092";
     }
 
     /*获取报警字段*/
@@ -620,6 +651,39 @@ public class Form1 : System.Windows.Forms.Form
         { statusBar1.Text = ("发送报文异常 " + ee.Message + "\r\n"); }
     }
 
+    void HandleVoiceMessage(byte[] bPkt)
+    {
+
+        
+    }
+    int GetPktHeader(string ReceivedStr)
+    {
+        string head = ReceivedStr.Substring(4,2);
+        int iRet = Convert.ToInt32(head);
+        return iRet;
+    }
+    void ParsePkt(byte[] bPkt)
+    {
+        string ReceivedStr = System.Text.Encoding.ASCII.GetString(bPkt);
+        switch (GetPktHeader(ReceivedStr))
+        {
+            case 0:
+                //textBox2.Text += ("00\r\n");
+                break;
+            case 1:
+                //textBox2.Text += ("01\r\n");
+                break;
+            case 44:
+                HandleVoiceMessage(bPkt);
+                break;
+            case 45:
+                //textBox2.Text += ("45\r\n");
+                break;
+            default:
+                break;
+        }
+
+    }
     void RcvPkt(object sender, System.Timers.ElapsedEventArgs e)
     {
         try
@@ -640,6 +704,7 @@ public class Form1 : System.Windows.Forms.Form
                 {
                     textBox2.AppendText(str + ": ↓" + ReceivedStr);
                     textBox2.AppendText("\r\n");
+                    ParsePkt(ReceivedByte);
                 }
                 
 
@@ -680,6 +745,7 @@ public class Form1 : System.Windows.Forms.Form
 
             string str = DateTime.Now.ToString("G");
             textBox2.AppendText(str + ": ↑" + System.Text.Encoding.Default.GetString(b));
+
             textBox2.AppendText("\r\n");
 
         }
@@ -767,8 +833,15 @@ public class Form1 : System.Windows.Forms.Form
 
                 if (i < (str.Length - 1))
                 {
+                    if (checkBox6.Checked == true)
+                    {
+                        EventSleep(1); //1秒发一个位置报文
 
-                    EventSleep(1); //10秒发一个位置报文
+                    }
+                    else
+                    {
+                        EventSleep(Convert.ToInt32(textBox4.Text)); //1秒发一个位置报文
+                    }
             
                 } 
             }
@@ -977,7 +1050,7 @@ public class Form1 : System.Windows.Forms.Form
         catch (Exception ee)
         { statusBar1.Text = ("发送登录报文 " + ee.Message + "\r\n"); }
     }
-
+    public bool bSend = false;
     private void button5_Click(object sender, EventArgs e)
     {
         try
@@ -990,6 +1063,18 @@ public class Form1 : System.Windows.Forms.Form
             //return;
      
             /*如果socket断开 则重连*/
+            if (bSend)
+            {
+                bSend = false;
+                this.button5.Text = "发送\n\n位置报文";
+            }
+                
+            else
+            {
+                bSend = true;
+                this.button5.Text = "停止发送";
+            }
+                
 
             if (!ChatSocket.Connected)
             {
@@ -1017,9 +1102,9 @@ public class Form1 : System.Windows.Forms.Form
                 thread.Start();
             }
 
- 
 
-            while (true)
+
+            while (bSend)
             {
                 //SWAP01150716A2234.6562N11351.0535E000.1051402000.0009000503000100,460,000,9779,4092#
                 //SWAP10150716A2234.6537N11351.4345E000.1051506000.0009000507000100,460,000,9779,4092,01,zh-cn,11#
@@ -1238,14 +1323,14 @@ public class Form1 : System.Windows.Forms.Form
         string sPktPrefix = string.Empty;
 
         myStream.Read(byteFile, 0, iStreamLength);
-
+        textBox3.Text = string.Empty;
         //关闭当前文件流
         myStream.Close();
 
         int j = 0;
         for (int i = 1; i <= iPktPartCount; i++)
         {
-            textBox3.Text += ("//一共" + iPktPartCount.ToString() + "个分包，当前第" + i.ToString() + "个分包\r\n");
+            //textBox3.Text += ("//一共" + iPktPartCount.ToString() + "个分包，当前第" + i.ToString() + "个分包\r\n");
             if ((i == iPktPartCount) && (iVoiceMaxPktLenth * i != iStreamLength))
                 iPktLenth = iStreamLength - (int)(iVoiceMaxPktLenth) * (i - 1);
 
