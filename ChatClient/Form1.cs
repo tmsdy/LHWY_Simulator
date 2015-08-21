@@ -19,13 +19,13 @@ public class Form1 : System.Windows.Forms.Form
     private string sVer = "力豪模拟登录 V1.0.4     ";
     private IContainer components = null;
 
-    static IPAddress HostIP = IPAddress.Parse("192.168.100.5"); //14.152.107.119
-    private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
-    //static IPAddress HostIP = IPAddress.Parse("183.39.136.55"); //14.152.107.119
+    //static IPAddress HostIP = IPAddress.Parse("192.168.100.5"); //14.152.107.119
     //private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
+    static IPAddress HostIP = IPAddress.Parse("183.39.136.55"); //14.152.107.119
+    IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
 
     //static IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
-    //private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
+    //IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
  
 	private Socket ChatSocket;
 	private bool flag=true;
@@ -76,6 +76,7 @@ public class Form1 : System.Windows.Forms.Form
     private CheckBox checkBox6;
     private TextBox textBox5;
     private Label label7;
+    private CheckBox checkBox7;
     private Label label1;
 	public Form1()
 	{
@@ -100,7 +101,7 @@ public class Form1 : System.Windows.Forms.Form
             RcvPktTimer.Elapsed += new System.Timers.ElapsedEventHandler(RcvPkt);
             RcvPktTimer.Interval = 100;
             RcvPktTimer.Enabled = true;
-            statusBar1.Text = "连接成功";
+            statusBar1.Text = "连接成功  " + ChatServer.Address.ToString() + ":" + ChatServer.Port;
    
         }
         catch (Exception ee)
@@ -165,6 +166,7 @@ public class Form1 : System.Windows.Forms.Form
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -263,7 +265,7 @@ public class Form1 : System.Windows.Forms.Form
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(304, 12);
+            this.checkBox1.Location = new System.Drawing.Point(304, 11);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(60, 16);
             this.checkBox1.TabIndex = 19;
@@ -502,16 +504,28 @@ public class Form1 : System.Windows.Forms.Form
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.Location = new System.Drawing.Point(378, 10);
+            this.label7.Location = new System.Drawing.Point(378, 12);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(36, 16);
             this.label7.TabIndex = 43;
             this.label7.Text = "电量";
             // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(242, 7);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(48, 16);
+            this.checkBox7.TabIndex = 44;
+            this.checkBox7.Text = "内网";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
             this.ClientSize = new System.Drawing.Size(756, 662);
+            this.Controls.Add(this.checkBox7);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.checkBox6);
@@ -1354,6 +1368,19 @@ public class Form1 : System.Windows.Forms.Form
             //iPktIndex += iPktLenth;
 
         }
+    }
+
+    private void checkBox7_CheckedChanged(object sender, EventArgs e)
+    {
+        if (checkBox7.Checked)
+        { 
+
+        }
+        else
+        { 
+
+        }
+
     }
 
 
