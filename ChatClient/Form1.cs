@@ -19,9 +19,9 @@ public class Form1 : System.Windows.Forms.Form
     private string sVer = "力豪模拟登录 V1.0.4     ";
     private IContainer components = null;
 
-    //static IPAddress HostIP = IPAddress.Parse("192.168.100.5"); //14.152.107.119
-    //private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
-    static IPAddress HostIP = IPAddress.Parse("183.39.136.55"); //14.152.107.119
+    //static IPAddress HostIP = IPAddress.Parse("127.0.0.1"); //14.152.107.119
+    //private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("60000"));
+    static IPAddress HostIP = IPAddress.Parse("59.40.99.133"); //14.152.107.119
     IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
 
     //static IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
@@ -51,7 +51,7 @@ public class Form1 : System.Windows.Forms.Form
 
     public double iVoiceMaxPktLenth = 900.00;
     private string sIMEI = "";
-    private int iMaxPktLenth = 512;
+    private int iMaxPktLenth = 1024;
     private int iKeepAliveInterval = 60000;
     private int iLonPrefix = 11352;
     private int iLatPrefix = 2234;
@@ -664,11 +664,25 @@ public class Form1 : System.Windows.Forms.Form
         catch (Exception ee)
         { statusBar1.Text = ("发送报文异常 " + ee.Message + "\r\n"); }
     }
-
+//    53 57 42 50 30 30 2c 32 30 31 35 30 38 32 31 31 32 33 37 33 36 23 
+    //53 57 42 50 34 34 2c 32 30 31 35 30 38 32 31 32 30 33 37 33 36 2c 33 38 2c 31 2c 39 30 30 2c 23 21 41 4d 52 0a 3c 91 17 16 be 66 79 e1 e0 01 e7 af f0 00 00 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3c 48 77 24 96 66 79 e1 e0 01 e7 ba f0 00 00 00 c0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3c 55 00 88 b6 66 79 e1 e0 01 e7 cf f0 00 00 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3c 48 f9 1f 96 66 79 e1 e0 01 e7 8a f0 00 00 00 c0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3c 54 fd 1f b6 66 79 e1 e0 01 e7 cf f0 00 00 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3c 28 54 1f e6 66 79 e1 e2 01 e7 fa f0 00 00 10 c0 00 00 00 00 00 5d 4c 00 00 00 00 00 16 a4 80 3c 1e 6f 61 34 e6 59 61 40 47 cd 9b a1 10 32 02 06 50 00 00 b7 b4 0b b4 3a 78 00 04 9d f6 51 c0 3c 28 40 26 8c 0e 58 a3 e1 63 96 2a b6 4d 50 92 fa b9 f4 47 44 54 39 8e 3e ce 0f 6b a1 2b 02 20 3c 18 c8 61 73 8d e2 f7 63 c5 a5 4b bc 89 ec 5f 7f 70 a8 ee 30 c4 7b 1c a2 f5 bb ee 13 ff 4f c0 3c 1e da 2b 87 f2 87 9b 92 c4 fd 55 e4 03 ea 83 56 32 b5 79 a0 3b 7d 29 bb c6 c0 8f 9f b8 05 f0 3c 16 4d 63 2f 4d c0 47 74 a2 f0 1c 66 b1 0d 4c 1d 36 fe 76 63 9c 0c 04 19 1f 51 40 68 98 0b 30 3c d8 7a 69 4f bf 2e 03 cb 55 b0 fa 0a 7e 0e 11 3e 72 cd cd cd d7 e3 46 09 41 4b dc 34 ec 44 10 3c 16 58 29 45 dc 61 0f 45 ba 6b 2c 81 92 64 fe 07 d5 0e 89 c9 e6 1c c1 1e 21 0e 89 48 4e ff 00 3c 20 6d 60 1b b8 4c 14 a3 dc eb 37 cb 6a 09 d5 0e 06 b4 5f 4f 64 9d c4 43 8d 8f 7f a3 27 79 a0 3c 1e 5a 2d 3b a3 92 16 85 bb 93 5b 74 cd 94 b6 58 83 72 84 e8 bf f6 b7 5e 4f 53 62 b7 be fb 80 3c 1e 58 71 79 1a 7c a0 49 76 39 d4 83 bd c4 cc 2f f4 d6 79 a4 80 25 6c 73 5d 8b 77 d4 b3 cf 70 3c 26 c9 83 4b bb e0 0c 09 76 64 8a 92 4f 2c 84 01 50 9b cb d6 4b e9 45 76 9a 37 43 47 52 ac e0 3c 1a 62 79 24 ea 06 55 21 ff 6b b5 df 7c 13 5e 42 16 13 19 9a de 17 4a 1e c8 66 f0 50 31 4e 20 3c 28 c8 1e 4b bc 8d 10 f0 ee 88 cb 13 01 5b 85 48 8c af 40 d9 73 a7 75 5e 36 c2 72 ec 14 92 40 3c 24 42 78 2b b7 38 03 a1 ff b4 66 ff 56 5b 1a a2 d4 89 4e 11 15 af 23 ae 7a 56 2b 88 83 6e e0 3c 1e 54 16 57 ec 78 01 c1 fe c2 9c 7a 04 63 8a 1c 42 d9 d3 b6 38 1e a8 3a 3c 03 a0 29 f3 15 60 3c 20 73 61 21 d8 f2 0b 61 fe 16 2a af 26 a9 02 0a de 88 79 98 c9 22 ab 40 45 e9 0b 91 10 b1 70 3c 1c 53 81 50 f1 4c 21 c1 fe d5 1b 3e d8 16 a4 60 73 95 12 fe 30 02 71 84 20 a5 1f 58 86 c0 30 3c 18 7a 63 2f ff 76 05 f4 ab c4 e5 70 29 dd 8a 74 f5 41 6a 88 d9 ce 2a d2 cb 54 bf 5f c1 d6 50 3c 2e 52 26 46 e9 84 15 94 a3 76 ec 97 fb 00 98 37 34 08 6c 52 0a 33 a1 ab a0 fb 1d 2f 6e 2b 00 3c e0 d8 74 27 ff 2e 41 25 ba ea 3a 74 35 db bf 19 e4 03 c0 78 87 7f be d3 7e 31 36 a6 9c e8 e0 3c 1c 63 7d 4b 8d d5 01 f8 63 f4 4b 13 98 33 47 ba a0 78 e5 76 f9 e4 ef 18 e8 5b a4 9c 1a e9 40 3c d8 c8 64 1b da ea 11 f0 ef 76 eb 15 ad 4d 24 64 30 6b a1 7a 07 ef 25 ba eb ae 6e 9f 3f 23 
     void HandleVoiceMessage(byte[] bPkt)
     {
-
-        
+        //SWBP44,20150821203736,38,1,900,#!AMR
+        string ReceivedStr = System.Text.Encoding.ASCII.GetString(bPkt);
+        int indexofDate = ReceivedStr.IndexOf(',',0) + 1;//7
+        int indexofAllPktCount = ReceivedStr.IndexOf(',', indexofDate) + 1;//22
+        int indexofCurrentPktCount = ReceivedStr.IndexOf(',', indexofAllPktCount) + 1;//25
+        int indexofPktLenth = ReceivedStr.IndexOf(',', indexofCurrentPktCount) + 1;//27   ///////////////////**************************************************************///////////
+        int indexofData = ReceivedStr.IndexOf('#', indexofPktLenth) + 1;//31
+        string sDate = ReceivedStr.Substring(indexofDate, indexofAllPktCount - indexofDate - 1);
+        int iAllPktCount = Convert.ToInt32(ReceivedStr.Substring(indexofAllPktCount, indexofCurrentPktCount - indexofAllPktCount - 1));
+        int iCurrentPktCount = Convert.ToInt32(ReceivedStr.Substring(indexofCurrentPktCount, indexofPktLenth - indexofCurrentPktCount - 1));
+        int iPktLenth = Convert.ToInt32(ReceivedStr.Substring(indexofPktLenth, indexofData - indexofPktLenth - 1));
+ 
+        //SWAP44,20140818064408,6,1,1#
+        string sPkt = "SWAP44," + sDate + "," + iAllPktCount.ToString() + "," + iCurrentPktCount.ToString() + ",1#";
+        SendPacket(sPkt);
     }
     int GetPktHeader(string ReceivedStr)
     {
