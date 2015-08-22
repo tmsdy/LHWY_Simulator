@@ -673,16 +673,28 @@ public class Form1 : System.Windows.Forms.Form
         if (!File.Exists(filepath))
         {
             //文件不存在
-              fs = File.Create(filepath);
+            fs = File.Create(filepath);
         }
         else
         {
-              fs = new FileStream(filepath, FileMode.Open, FileAccess.ReadWrite);
+            //如果是第1个分包，则覆盖
+            if (1 == indexofCurrentPktCount)
+            {
+                fs = new FileStream(filepath, FileMode.Create, FileAccess.ReadWrite);
+            }
+            else
+            {
+                fs = new FileStream(filepath, FileMode.Open, FileAccess.ReadWrite);
+
+            }
+             
+            
         }
         BinaryWriter bw = new BinaryWriter(fs);
         //如果不是第1个分包，则移动到当前流的末尾
-        if(1 != indexofCurrentPktCount)
+        if (1 != indexofCurrentPktCount)
             bw.Seek(0, SeekOrigin.End);
+
 
         bw.Write(sNewVoice);
         bw.Close();
@@ -717,12 +729,12 @@ public class Form1 : System.Windows.Forms.Form
         //显示收到的内容：
         textBox2.AppendText( DateTime.Now.ToString("G") + ": ↓" + ReceivedStr.Substring(0, indexofData) + "语音数据");
         textBox2.AppendText("\r\n");
-        if (iCurrentPktCount == iAllPktCount)
-            textBox2.AppendText("---------------语音文件已保存在./voicedata/" + sDate + ".amr-------------------\r\n");
-        
+
         //SWAP44,20140818064408,6,1,1#
         string sPkt = "SWAP44," + sDate + "," + iAllPktCount.ToString() + "," + iCurrentPktCount.ToString() + ",1#";
         SendPacket(sPkt);
+        if (iCurrentPktCount == iAllPktCount)
+        textBox2.AppendText("---------------语音文件已保存在./voicedata/" + sDate + ".amr-------------------\r\n");
     }
     int GetPktHeader(string ReceivedStr)
     {
@@ -1099,6 +1111,11 @@ public class Form1 : System.Windows.Forms.Form
         this.trackBar2.Value=2;
         //this.textBox3.AppendText(GetHourMinSec());
         //sIMEI = this.textBox1.Text;
+        string sPath = Application.StartupPath + @"\voicedata\";
+        if (!Directory.Exists(sPath))
+        {
+            Directory.CreateDirectory(sPath);
+        }
 
     }
 
