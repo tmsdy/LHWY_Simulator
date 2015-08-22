@@ -19,10 +19,6 @@ public class Form1 : System.Windows.Forms.Form
     private string sVer = "Á¦ºÀÄ£ÄâµÇÂ¼ V1.0.6     ";
     private IContainer components = null;
 
-    //static IPAddress HostIP = IPAddress.Parse("127.0.0.1"); //14.152.107.119
-    //private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("60000"));
-    //static IPAddress HostIP = IPAddress.Parse("59.40.99.133"); //14.152.107.119
-    //IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
 
     static IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
     IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
@@ -1474,8 +1470,10 @@ public class Form1 : System.Windows.Forms.Form
         ChatSocket.Close();
         if (checkBox7.Checked)
         {
-            IPAddress HostIP = IPAddress.Parse("59.40.99.133"); 
-            ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
+            IPHostEntry hostinfo = Dns.GetHostEntry(@"mapgoo1307.eicp.net");
+            IPAddress[] aryIP = hostinfo.AddressList;
+             
+            ChatServer = new IPEndPoint(aryIP[0], Int32.Parse("9988"));
 
             //IPAddress HostIP = IPAddress.Parse("59.40.99.133");
             //ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
