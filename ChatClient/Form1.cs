@@ -691,9 +691,8 @@ public class Form1 : System.Windows.Forms.Form
             
         }
         BinaryWriter bw = new BinaryWriter(fs);
-        //如果不是第1个分包，则移动到当前流的末尾
-        if (1 != indexofCurrentPktCount)
-            bw.Seek(0, SeekOrigin.End);
+        //移动到当前流的末尾
+        bw.Seek(0, SeekOrigin.End);
 
 
         bw.Write(sNewVoice);
