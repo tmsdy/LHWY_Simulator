@@ -16,19 +16,19 @@ namespace ChatClient
 	/// </summary>
 public class Form1 : System.Windows.Forms.Form
 {
-    private string sVer = "力豪模拟登录 V1.0.5     ";
+    private string sVer = "力豪模拟登录 V1.0.6     ";
     private IContainer components = null;
 
     //static IPAddress HostIP = IPAddress.Parse("127.0.0.1"); //14.152.107.119
     //private IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("60000"));
-    static IPAddress HostIP = IPAddress.Parse("59.40.99.133"); //14.152.107.119
-    IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
+    //static IPAddress HostIP = IPAddress.Parse("59.40.99.133"); //14.152.107.119
+    //IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
 
-    //static IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
-    //IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
- 
-	private Socket ChatSocket;
-	private bool flag=true;
+    static IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
+    IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
+
+    private Socket ChatSocket;
+    private bool flag = true;
 	private System.Windows.Forms.TextBox textBox1;
     private System.Windows.Forms.TextBox textBox2;
 	private System.Windows.Forms.Button button2;
@@ -102,7 +102,7 @@ public class Form1 : System.Windows.Forms.Form
             RcvPktTimer.Interval = 100;
             RcvPktTimer.Enabled = true;
             statusBar1.Text = "连接成功  " + ChatServer.Address.ToString() + ":" + ChatServer.Port;
-   
+
         }
         catch (Exception ee)
         { statusBar1.Text = ee.Message; }
@@ -518,7 +518,6 @@ public class Form1 : System.Windows.Forms.Form
             this.checkBox7.TabIndex = 44;
             this.checkBox7.Text = "内网";
             this.checkBox7.UseVisualStyleBackColor = true;
-            this.checkBox7.Visible = false;
             this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
             // Form1
@@ -819,7 +818,9 @@ public class Form1 : System.Windows.Forms.Form
             }
         }
         catch (Exception ee)
-        { statusBar1.Text = ("接收报文 " + ee.Message + "\r\n"); }
+        { 
+            //statusBar1.Text = ("接收报文 " + ee.Message + "\r\n"); 
+        }
 
 
     }
@@ -1107,7 +1108,7 @@ public class Form1 : System.Windows.Forms.Form
     private void Form1_Load(object sender, EventArgs e)
     {
         this.radioButton2.Checked = true;
-        this.trackBar2.Value=2;
+        this.trackBar2.Value = 2;
         //this.textBox3.AppendText(GetHourMinSec());
         //sIMEI = this.textBox1.Text;
         string sPath = Application.StartupPath + @"\voicedata\";
@@ -1130,6 +1131,8 @@ public class Form1 : System.Windows.Forms.Form
             {
                 ChatSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 ChatSocket.Connect(ChatServer);
+
+                statusBar1.Text = "连接成功  " + ChatServer.Address.ToString() + ":" + ChatServer.Port;
                 /*启动收包定时器*/
                 RcvPktTimer.Enabled = true;
 
@@ -1466,25 +1469,31 @@ public class Form1 : System.Windows.Forms.Form
 
     private void checkBox7_CheckedChanged(object sender, EventArgs e)
     {
+        RcvPktTimer.Enabled = false;
+         
+        ChatSocket.Close();
         if (checkBox7.Checked)
-        { 
+        {
+            IPAddress HostIP = IPAddress.Parse("59.40.99.133"); 
+            ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
 
+            //IPAddress HostIP = IPAddress.Parse("59.40.99.133");
+            //ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
         }
         else
-        { 
-
+        {
+            IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
+            ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
         }
+         
+        ChatSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        ChatSocket.Connect(ChatServer);
+        RcvPktTimer.Enabled = true;
 
+        statusBar1.Text = "连接成功  " + ChatServer.Address.ToString() + ":" + ChatServer.Port;
     }
 
-
-
-
- 
-
-
-
-
+     
 }
 }
 
