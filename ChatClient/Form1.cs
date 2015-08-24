@@ -1374,7 +1374,7 @@ public class Form1 : System.Windows.Forms.Form
             button2.Visible = true;
             textBox3.Visible = true;
             this.FindForm().Size = new Size(1300, 700);
-            checkBox6.Checked = true;
+            //checkBox6.Checked = true;
         }
         else
         {
@@ -1382,7 +1382,7 @@ public class Form1 : System.Windows.Forms.Form
             textBox3.Text = string.Empty;
             textBox3.Visible = false;
             this.FindForm().Size = new Size(786, 700);
-            
+            checkBox6.Checked = false;
         }
     }
     private void pringASCII(string s2)
@@ -1401,6 +1401,7 @@ public class Form1 : System.Windows.Forms.Form
     private void button7_Click(object sender, EventArgs e)
     {
         checkBox5.Checked = true;
+        checkBox6.Checked = true;
         button2.Visible = true;
         textBox3.Visible = true;
         this.FindForm().Size = new Size(1300, 700);
