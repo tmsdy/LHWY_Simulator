@@ -16,7 +16,7 @@ namespace ChatClient
 	/// </summary>
 public class Form1 : System.Windows.Forms.Form
 {
-    private string sVer = "力豪模拟登录 V1.0.6     ";
+    private string sVer = "力豪模拟登录 V1.0.7     ";
     private IContainer components = null;
 
 
@@ -73,6 +73,10 @@ public class Form1 : System.Windows.Forms.Form
     private TextBox textBox5;
     private Label label7;
     private CheckBox checkBox7;
+    private Label label8;
+    private TextBox textBox6;
+    private TextBox textBox7;
+    private Label label9;
     private Label label1;
 	public Form1()
 	{
@@ -163,6 +167,10 @@ public class Form1 : System.Windows.Forms.Form
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -172,7 +180,7 @@ public class Form1 : System.Windows.Forms.Form
             this.textBox1.Location = new System.Drawing.Point(107, 27);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(167, 24);
+            this.textBox1.Size = new System.Drawing.Size(124, 24);
             this.textBox1.TabIndex = 1;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -262,7 +270,7 @@ public class Form1 : System.Windows.Forms.Form
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(304, 10);
+            this.checkBox1.Location = new System.Drawing.Point(253, 10);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(60, 16);
             this.checkBox1.TabIndex = 19;
@@ -308,7 +316,7 @@ public class Form1 : System.Windows.Forms.Form
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(304, 36);
+            this.checkBox3.Location = new System.Drawing.Point(253, 36);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(60, 16);
             this.checkBox3.TabIndex = 22;
@@ -319,7 +327,7 @@ public class Form1 : System.Windows.Forms.Form
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(374, 37);
+            this.checkBox4.Location = new System.Drawing.Point(325, 10);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(42, 16);
             this.checkBox4.TabIndex = 23;
@@ -407,7 +415,7 @@ public class Form1 : System.Windows.Forms.Form
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(149, 8);
+            this.label6.Location = new System.Drawing.Point(114, 8);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 12);
             this.label6.TabIndex = 35;
@@ -449,7 +457,7 @@ public class Form1 : System.Windows.Forms.Form
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(422, 36);
+            this.checkBox2.Location = new System.Drawing.Point(324, 36);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(48, 16);
             this.checkBox2.TabIndex = 38;
@@ -473,7 +481,7 @@ public class Form1 : System.Windows.Forms.Form
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button7.Location = new System.Drawing.Point(557, 575);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(78, 59);
+            this.button7.Size = new System.Drawing.Size(78, 36);
             this.button7.TabIndex = 40;
             this.button7.Text = "打开语音";
             this.button7.Click += new System.EventHandler(this.button7_Click);
@@ -508,18 +516,60 @@ public class Form1 : System.Windows.Forms.Form
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(242, 7);
+            this.checkBox7.Location = new System.Drawing.Point(197, 7);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(48, 16);
             this.checkBox7.TabIndex = 44;
             this.checkBox7.Text = "内网";
             this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.Visible = false;
             this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(378, 37);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(36, 16);
+            this.label8.TabIndex = 46;
+            this.label8.Text = "计步";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(422, 34);
+            this.textBox6.Multiline = true;
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(43, 19);
+            this.textBox6.TabIndex = 45;
+            this.textBox6.Text = "1";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox7.Location = new System.Drawing.Point(604, 616);
+            this.textBox7.Multiline = true;
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(28, 19);
+            this.textBox7.TabIndex = 47;
+            this.textBox7.Text = "3";
+            //this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label9.Location = new System.Drawing.Point(538, 617);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(60, 16);
+            this.label9.TabIndex = 48;
+            this.label9.Text = "可存语音";
             // 
             // Form1
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
             this.ClientSize = new System.Drawing.Size(756, 662);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBox6);
             this.Controls.Add(this.checkBox7);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox5);
@@ -724,11 +774,35 @@ public class Form1 : System.Windows.Forms.Form
         textBox2.AppendText( DateTime.Now.ToString("G") + ": ↓" + ReceivedStr.Substring(0, indexofData) + "语音数据");
         textBox2.AppendText("\r\n");
 
+        string sPkt = string.Empty;
+        //判断是否可以接收语音
+        int iVoiceCount = Convert.ToInt32(textBox7.Text);
+        if (0 == iVoiceCount)
+        {
+            sPkt = sPkt = "SWAP44," + sDate + "," + iAllPktCount.ToString() + "," + iCurrentPktCount.ToString() + ",0#";
+            //textBox7.Text = (iVoiceCount - 1).ToString();
+            return;
+        }
+        else
+        {
         //SWAP44,20140818064408,6,1,1#
-        string sPkt = "SWAP44," + sDate + "," + iAllPktCount.ToString() + "," + iCurrentPktCount.ToString() + ",1#";
+          sPkt = "SWAP44," + sDate + "," + iAllPktCount.ToString() + "," + iCurrentPktCount.ToString() + ",1#";
+        }
+
         SendPacket(sPkt);
         if (iCurrentPktCount == iAllPktCount)
-        textBox2.AppendText("---------------语音文件已保存在./voicedata/" + sDate + ".amr-------------------\r\n");
+        {
+            if (0 < iVoiceCount)
+            {
+                //Thread.Sleep(300);
+                textBox7.Text = (iVoiceCount - 1).ToString();
+                string sVoiceCount = "SWAP46," + textBox7.Text + "#";
+                SendPacket(sVoiceCount);
+            }
+            textBox2.AppendText("---------------语音文件已保存在./voicedata/" + sDate + ".amr-------------------\r\n");
+               
+        }
+        
     }
     int GetPktHeader(string ReceivedStr)
     {
@@ -962,8 +1036,12 @@ public class Form1 : System.Windows.Forms.Form
             {
                 if (g_start)
                 {
+                    int iStep = Convert.ToInt32(textBox6.Text);
+                    textBox6.Text = (iStep + 1).ToString("D4");
+                    string sPkt = "SWCP01" + Convert.ToInt32(textBox5.Text).ToString("D3") + textBox6.Text+"#";
+                    
                     //SWCP01075#
-                    SendPacket("SWCP01075#");
+                    SendPacket(sPkt);
                     //SendPacket(textBox1.Text);
                     //EventSleep(60);  //10秒发一个心跳包
                     Thread.Sleep(iKeepAliveInterval);
@@ -1153,6 +1231,10 @@ public class Form1 : System.Windows.Forms.Form
 
             string sLogininPkt = "SWAP00" + sIMEI + "#";
             SendPacket(sLogininPkt);
+
+
+            string sVoiceCount = "SWAP46," + textBox7.Text + "#";
+            SendPacket(sVoiceCount);
         }
         catch (Exception ee)
         { statusBar1.Text = ("发送登录报文 " + ee.Message + "\r\n"); }
@@ -1492,6 +1574,7 @@ public class Form1 : System.Windows.Forms.Form
         statusBar1.Text = "连接成功  " + ChatServer.Address.ToString() + ":" + ChatServer.Port;
     }
 
+ 
      
 }
 }
