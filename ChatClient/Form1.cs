@@ -16,12 +16,15 @@ namespace ChatClient
 	/// </summary>
 public class Form1 : System.Windows.Forms.Form
 {
-    private string sVer = "力豪模拟登录 V1.0.7     ";
+    private string sCompany = "力豪";
+    private string sVer = "模拟登录 V1.0.8     ";
     private IContainer components = null;
 
 
     static IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
     IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
+    //static IPAddress HostIP = IPAddress.Parse("183.62.138.3"); //14.152.107.119
+    //IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("5566"));
 
     private Socket ChatSocket;
     private bool flag = true;
@@ -518,11 +521,10 @@ public class Form1 : System.Windows.Forms.Form
             this.checkBox7.AutoSize = true;
             this.checkBox7.Location = new System.Drawing.Point(197, 7);
             this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(48, 16);
+            this.checkBox7.Size = new System.Drawing.Size(42, 16);
             this.checkBox7.TabIndex = 44;
-            this.checkBox7.Text = "内网";
+            this.checkBox7.Text = "PGD";
             this.checkBox7.UseVisualStyleBackColor = true;
-            this.checkBox7.Visible = false;
             this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
             // label8
@@ -551,7 +553,6 @@ public class Form1 : System.Windows.Forms.Form
             this.textBox7.Size = new System.Drawing.Size(28, 19);
             this.textBox7.TabIndex = 47;
             this.textBox7.Text = "3";
-            //this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // label9
             // 
@@ -1123,7 +1124,7 @@ public class Form1 : System.Windows.Forms.Form
         sIMEI = "111111111111111";
         if (radioButton1.Checked)
         {
-            this.Text = sVer + "当前登录：111";
+            this.Text = sCompany + sVer + "当前登录：111";
         }
       
     }
@@ -1133,7 +1134,7 @@ public class Form1 : System.Windows.Forms.Form
         sIMEI = "111111111111112";
         if (radioButton2.Checked)
         {
-            this.Text = sVer + "当前登录：112";
+            this.Text = sCompany + sVer + "当前登录：112";
         }
 
     }
@@ -1143,7 +1144,7 @@ public class Form1 : System.Windows.Forms.Form
         sIMEI = "111111111111113";
         if (radioButton3.Checked)
         {
-            this.Text = sVer + "当前登录：113";
+            this.Text = sCompany + sVer + "当前登录：113";
         }
     }
 
@@ -1152,7 +1153,7 @@ public class Form1 : System.Windows.Forms.Form
         sIMEI = "111111111111114";
         if (radioButton4.Checked)
         {
-            this.Text = sVer + "当前登录：114";
+            this.Text = sCompany + sVer + "当前登录：114";
         }
     }
   
@@ -1165,7 +1166,7 @@ public class Form1 : System.Windows.Forms.Form
         radioButton4.Checked = false;
 
         sIMEI = this.textBox1.Text;
-            this.Text = sVer + "当前登录：" + this.textBox1.Text;
+        this.Text = sCompany + sVer + "当前登录：" + this.textBox1.Text;
     }
     private void checkBox1_CheckedChanged(object sender, EventArgs e)
     {
@@ -1553,25 +1554,42 @@ public class Form1 : System.Windows.Forms.Form
         ChatSocket.Close();
         if (checkBox7.Checked)
         {
-            IPHostEntry hostinfo = Dns.GetHostEntry(@"mapgoo1307.eicp.net");
-            IPAddress[] aryIP = hostinfo.AddressList;
+            //IPHostEntry hostinfo = Dns.GetHostEntry(@"mapgoo1307.eicp.net");
+            //IPAddress[] aryIP = hostinfo.AddressList;
              
-            ChatServer = new IPEndPoint(aryIP[0], Int32.Parse("9988"));
+            //ChatServer = new IPEndPoint(aryIP[0], Int32.Parse("9988"));
 
-            //IPAddress HostIP = IPAddress.Parse("59.40.99.133");
-            //ChatServer = new IPEndPoint(HostIP, Int32.Parse("9988"));
+            IPAddress HostIP = IPAddress.Parse("183.62.138.3");
+            ChatServer = new IPEndPoint(HostIP, Int32.Parse("5566"));
+            sCompany  = "品冠达";
         }
         else
         {
             IPAddress HostIP = IPAddress.Parse("14.152.107.119"); //14.152.107.119
             ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
+            sCompany = "力豪";
         }
-         
-        ChatSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        ChatSocket.Connect(ChatServer);
-        RcvPktTimer.Enabled = true;
+        try
+        {
+            ChatSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            ChatSocket.Connect(ChatServer);
+            RcvPktTimer.Enabled = true;
+            this.Text =sCompany +  sVer;
+            statusBar1.Text = "连接成功  " + ChatServer.Address.ToString() + ":" + ChatServer.Port;
+        }
+        catch
+        {
+            statusBar1.Text = "切换服务器失败";
+            if (checkBox7.Checked)
+            {
+                checkBox7.Checked = false;
+            }
+            else
+            {
+                checkBox7.Checked = true;
+            }
+        }
 
-        statusBar1.Text = "连接成功  " + ChatServer.Address.ToString() + ":" + ChatServer.Port;
     }
 
  
