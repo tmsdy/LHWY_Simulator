@@ -180,10 +180,10 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(107, 27);
+            this.textBox1.Location = new System.Drawing.Point(143, 35);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(124, 24);
+            this.textBox1.Size = new System.Drawing.Size(165, 31);
             this.textBox1.TabIndex = 1;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -191,20 +191,20 @@ public class Form1 : System.Windows.Forms.Form
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox2.Location = new System.Drawing.Point(12, 67);
+            this.textBox2.Location = new System.Drawing.Point(16, 86);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(731, 488);
+            this.textBox2.Size = new System.Drawing.Size(975, 439);
             this.textBox2.TabIndex = 2;
             // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(656, 575);
+            this.button2.Location = new System.Drawing.Point(875, 550);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(78, 59);
+            this.button2.Size = new System.Drawing.Size(104, 76);
             this.button2.TabIndex = 4;
             this.button2.Text = "发送\r\n\r\n自定义报文";
             this.button2.Visible = false;
@@ -215,9 +215,9 @@ public class Form1 : System.Windows.Forms.Form
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button3.Font = new System.Drawing.Font("宋体", 14F);
             this.button3.ForeColor = System.Drawing.Color.Red;
-            this.button3.Location = new System.Drawing.Point(454, 575);
+            this.button3.Location = new System.Drawing.Point(605, 550);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(78, 59);
+            this.button3.Size = new System.Drawing.Size(104, 76);
             this.button3.TabIndex = 5;
             this.button3.Text = "退出";
             this.button3.Click += new System.EventHandler(this.DiscBtn_click);
@@ -227,18 +227,18 @@ public class Form1 : System.Windows.Forms.Form
             this.statusBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.statusBar1.Dock = System.Windows.Forms.DockStyle.None;
-            this.statusBar1.Location = new System.Drawing.Point(0, 642);
+            this.statusBar1.Location = new System.Drawing.Point(0, 636);
             this.statusBar1.Name = "statusBar1";
-            this.statusBar1.Size = new System.Drawing.Size(755, 20);
+            this.statusBar1.Size = new System.Drawing.Size(755, 26);
             this.statusBar1.TabIndex = 11;
             this.statusBar1.Text = "Status";
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(343, 572);
+            this.button1.Location = new System.Drawing.Point(457, 546);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 28);
+            this.button1.Size = new System.Drawing.Size(104, 36);
             this.button1.TabIndex = 12;
             this.button1.Text = "下线";
             this.button1.UseVisualStyleBackColor = true;
@@ -247,9 +247,9 @@ public class Form1 : System.Windows.Forms.Form
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(12, 11);
+            this.radioButton1.Location = new System.Drawing.Point(16, 14);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(41, 16);
+            this.radioButton1.Size = new System.Drawing.Size(52, 19);
             this.radioButton1.TabIndex = 13;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "111";
@@ -259,9 +259,9 @@ public class Form1 : System.Windows.Forms.Form
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(12, 36);
+            this.radioButton2.Location = new System.Drawing.Point(16, 46);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(41, 16);
+            this.radioButton2.Size = new System.Drawing.Size(52, 19);
             this.radioButton2.TabIndex = 14;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "112";
@@ -273,9 +273,9 @@ public class Form1 : System.Windows.Forms.Form
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(253, 10);
+            this.checkBox1.Location = new System.Drawing.Point(337, 13);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(60, 16);
+            this.checkBox1.Size = new System.Drawing.Size(74, 19);
             this.checkBox1.TabIndex = 19;
             this.checkBox1.Text = "发心跳";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -285,11 +285,11 @@ public class Form1 : System.Windows.Forms.Form
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(225, 7);
+            this.textBox3.Location = new System.Drawing.Point(48, 9);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(513, 633);
+            this.textBox3.Size = new System.Drawing.Size(684, 625);
             this.textBox3.TabIndex = 6;
             this.textBox3.Visible = false;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
@@ -297,9 +297,9 @@ public class Form1 : System.Windows.Forms.Form
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(59, 11);
+            this.radioButton3.Location = new System.Drawing.Point(79, 14);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(41, 16);
+            this.radioButton3.Size = new System.Drawing.Size(52, 19);
             this.radioButton3.TabIndex = 15;
             this.radioButton3.TabStop = true;
             this.radioButton3.Text = "113";
@@ -309,9 +309,9 @@ public class Form1 : System.Windows.Forms.Form
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(12, 571);
+            this.button4.Location = new System.Drawing.Point(16, 545);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(80, 65);
+            this.button4.Size = new System.Drawing.Size(107, 84);
             this.button4.TabIndex = 20;
             this.button4.Text = "登录";
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -319,9 +319,9 @@ public class Form1 : System.Windows.Forms.Form
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(253, 36);
+            this.checkBox3.Location = new System.Drawing.Point(337, 46);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(60, 16);
+            this.checkBox3.Size = new System.Drawing.Size(74, 19);
             this.checkBox3.TabIndex = 22;
             this.checkBox3.Text = "低电压";
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -330,9 +330,9 @@ public class Form1 : System.Windows.Forms.Form
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(325, 10);
+            this.checkBox4.Location = new System.Drawing.Point(433, 13);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(42, 16);
+            this.checkBox4.Size = new System.Drawing.Size(53, 19);
             this.checkBox4.TabIndex = 23;
             this.checkBox4.Text = "SOS";
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -341,9 +341,9 @@ public class Form1 : System.Windows.Forms.Form
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button5.Location = new System.Drawing.Point(234, 575);
+            this.button5.Location = new System.Drawing.Point(312, 550);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(78, 59);
+            this.button5.Size = new System.Drawing.Size(104, 76);
             this.button5.TabIndex = 26;
             this.button5.Text = "发送\r\n\r\n位置报文";
             this.button5.UseVisualStyleBackColor = true;
@@ -352,46 +352,46 @@ public class Form1 : System.Windows.Forms.Form
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.Location = new System.Drawing.Point(121, 569);
+            this.label1.Location = new System.Drawing.Point(161, 543);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 16);
+            this.label1.Size = new System.Drawing.Size(120, 20);
             this.label1.TabIndex = 28;
             this.label1.Text = "自动发送间隔";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(513, 40);
+            this.label2.Location = new System.Drawing.Point(684, 51);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 12);
+            this.label2.Size = new System.Drawing.Size(112, 15);
             this.label2.TabIndex = 30;
             this.label2.Text = "经纬度变化强度";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(480, 13);
+            this.label3.Location = new System.Drawing.Point(640, 17);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(17, 12);
+            this.label3.Size = new System.Drawing.Size(22, 15);
             this.label3.TabIndex = 31;
             this.label3.Text = "弱";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(609, 13);
+            this.label4.Location = new System.Drawing.Point(812, 17);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.Size = new System.Drawing.Size(22, 15);
             this.label4.TabIndex = 32;
             this.label4.Text = "强";
             // 
             // textBox4
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox4.Location = new System.Drawing.Point(123, 617);
+            this.textBox4.Location = new System.Drawing.Point(164, 604);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(43, 23);
+            this.textBox4.Size = new System.Drawing.Size(57, 30);
             this.textBox4.TabIndex = 27;
             this.textBox4.Text = "10";
             // 
@@ -399,9 +399,9 @@ public class Form1 : System.Windows.Forms.Form
             // 
             this.trackBar2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.trackBar2.LargeChange = 3;
-            this.trackBar2.Location = new System.Drawing.Point(107, 587);
+            this.trackBar2.Location = new System.Drawing.Point(143, 566);
             this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(104, 45);
+            this.trackBar2.Size = new System.Drawing.Size(138, 56);
             this.trackBar2.TabIndex = 33;
             this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
             // 
@@ -409,27 +409,27 @@ public class Form1 : System.Windows.Forms.Form
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(172, 622);
+            this.label5.Location = new System.Drawing.Point(229, 611);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(17, 12);
+            this.label5.Size = new System.Drawing.Size(22, 15);
             this.label5.TabIndex = 34;
             this.label5.Text = "秒";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(114, 8);
+            this.label6.Location = new System.Drawing.Point(152, 10);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(77, 12);
+            this.label6.Size = new System.Drawing.Size(99, 15);
             this.label6.TabIndex = 35;
             this.label6.Text = "手动输入IMEI";
             // 
             // radioButton4
             // 
             this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(59, 36);
+            this.radioButton4.Location = new System.Drawing.Point(79, 46);
             this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(41, 16);
+            this.radioButton4.Size = new System.Drawing.Size(52, 19);
             this.radioButton4.TabIndex = 36;
             this.radioButton4.TabStop = true;
             this.radioButton4.Text = "114";
@@ -439,19 +439,19 @@ public class Form1 : System.Windows.Forms.Form
             // trackBar1
             // 
             this.trackBar1.LargeChange = 3;
-            this.trackBar1.Location = new System.Drawing.Point(503, 7);
+            this.trackBar1.Location = new System.Drawing.Point(671, 9);
             this.trackBar1.Maximum = 2;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(104, 45);
+            this.trackBar1.Size = new System.Drawing.Size(138, 56);
             this.trackBar1.TabIndex = 29;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button6.Location = new System.Drawing.Point(343, 606);
+            this.button6.Location = new System.Drawing.Point(457, 590);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(78, 28);
+            this.button6.Size = new System.Drawing.Size(104, 36);
             this.button6.TabIndex = 37;
             this.button6.Text = "关机下线";
             this.button6.UseVisualStyleBackColor = true;
@@ -460,9 +460,9 @@ public class Form1 : System.Windows.Forms.Form
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(324, 36);
+            this.checkBox2.Location = new System.Drawing.Point(432, 46);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(48, 16);
+            this.checkBox2.Size = new System.Drawing.Size(59, 19);
             this.checkBox2.TabIndex = 38;
             this.checkBox2.Text = "脱落";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -471,9 +471,9 @@ public class Form1 : System.Windows.Forms.Form
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(655, 13);
+            this.checkBox5.Location = new System.Drawing.Point(873, 17);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(84, 16);
+            this.checkBox5.Size = new System.Drawing.Size(104, 19);
             this.checkBox5.TabIndex = 39;
             this.checkBox5.Text = "自定义发送";
             this.checkBox5.UseVisualStyleBackColor = true;
@@ -482,9 +482,9 @@ public class Form1 : System.Windows.Forms.Form
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button7.Location = new System.Drawing.Point(557, 575);
+            this.button7.Location = new System.Drawing.Point(743, 550);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(78, 36);
+            this.button7.Size = new System.Drawing.Size(104, 47);
             this.button7.TabIndex = 40;
             this.button7.Text = "打开语音";
             this.button7.Click += new System.EventHandler(this.button7_Click);
@@ -492,36 +492,36 @@ public class Form1 : System.Windows.Forms.Form
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(654, 40);
+            this.checkBox6.Location = new System.Drawing.Point(872, 51);
             this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(84, 16);
+            this.checkBox6.Size = new System.Drawing.Size(105, 19);
             this.checkBox6.TabIndex = 41;
             this.checkBox6.Text = "16进制发送";
             this.checkBox6.UseVisualStyleBackColor = true;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(422, 9);
+            this.textBox5.Location = new System.Drawing.Point(563, 12);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(43, 19);
+            this.textBox5.Size = new System.Drawing.Size(57, 24);
             this.textBox5.TabIndex = 42;
             this.textBox5.Text = "50";
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(378, 12);
+            this.label7.Location = new System.Drawing.Point(504, 15);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 16);
+            this.label7.Size = new System.Drawing.Size(48, 21);
             this.label7.TabIndex = 43;
             this.label7.Text = "电量";
             // 
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(197, 7);
+            this.checkBox7.Location = new System.Drawing.Point(263, 9);
             this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(42, 16);
+            this.checkBox7.Size = new System.Drawing.Size(53, 19);
             this.checkBox7.TabIndex = 44;
             this.checkBox7.Text = "PGD";
             this.checkBox7.UseVisualStyleBackColor = true;
@@ -529,43 +529,43 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(378, 37);
+            this.label8.Location = new System.Drawing.Point(504, 48);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 16);
+            this.label8.Size = new System.Drawing.Size(48, 20);
             this.label8.TabIndex = 46;
             this.label8.Text = "计步";
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(422, 34);
+            this.textBox6.Location = new System.Drawing.Point(563, 44);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(43, 19);
+            this.textBox6.Size = new System.Drawing.Size(57, 24);
             this.textBox6.TabIndex = 45;
             this.textBox6.Text = "1";
             // 
             // textBox7
             // 
             this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox7.Location = new System.Drawing.Point(604, 616);
+            this.textBox7.Location = new System.Drawing.Point(805, 603);
             this.textBox7.Multiline = true;
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(28, 19);
+            this.textBox7.Size = new System.Drawing.Size(38, 24);
             this.textBox7.TabIndex = 47;
             this.textBox7.Text = "3";
             // 
             // label9
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label9.Location = new System.Drawing.Point(538, 617);
+            this.label9.Location = new System.Drawing.Point(717, 604);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(60, 16);
+            this.label9.Size = new System.Drawing.Size(80, 21);
             this.label9.TabIndex = 48;
             this.label9.Text = "可存语音";
             // 
             // Form1
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
+            this.AutoScaleBaseSize = new System.Drawing.Size(8, 18);
             this.ClientSize = new System.Drawing.Size(756, 662);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.textBox7);
@@ -746,7 +746,10 @@ public class Form1 : System.Windows.Forms.Form
         fs.Close();
          
     }
-
+    void HandlePhoneBook(byte[] bPkt)
+    {
+        
+    }
 
 //    53 57 42 50 30 30 2c 32 30 31 35 30 38 32 31 31 32 33 37 33 36 23 
     //53 57 42 50 34 34 2c 32 30 31 35 30 38 32 31 32 30 33 37 33 36 2c 33 38 2c 31 2c 39 30 30 2c 23 21 41 4d 52 0a 3c 91 17 16 be 66 79 e1 e0 01 e7 af f0 00 00 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3c 48 77 24 96 66 79 e1 e0 01 e7 ba f0 00 00 00 c0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3c 55 00 88 b6 66 79 e1 e0 01 e7 cf f0 00 00 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3c 48 f9 1f 96 66 79 e1 e0 01 e7 8a f0 00 00 00 c0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3c 54 fd 1f b6 66 79 e1 e0 01 e7 cf f0 00 00 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3c 28 54 1f e6 66 79 e1 e2 01 e7 fa f0 00 00 10 c0 00 00 00 00 00 5d 4c 00 00 00 00 00 16 a4 80 3c 1e 6f 61 34 e6 59 61 40 47 cd 9b a1 10 32 02 06 50 00 00 b7 b4 0b b4 3a 78 00 04 9d f6 51 c0 3c 28 40 26 8c 0e 58 a3 e1 63 96 2a b6 4d 50 92 fa b9 f4 47 44 54 39 8e 3e ce 0f 6b a1 2b 02 20 3c 18 c8 61 73 8d e2 f7 63 c5 a5 4b bc 89 ec 5f 7f 70 a8 ee 30 c4 7b 1c a2 f5 bb ee 13 ff 4f c0 3c 1e da 2b 87 f2 87 9b 92 c4 fd 55 e4 03 ea 83 56 32 b5 79 a0 3b 7d 29 bb c6 c0 8f 9f b8 05 f0 3c 16 4d 63 2f 4d c0 47 74 a2 f0 1c 66 b1 0d 4c 1d 36 fe 76 63 9c 0c 04 19 1f 51 40 68 98 0b 30 3c d8 7a 69 4f bf 2e 03 cb 55 b0 fa 0a 7e 0e 11 3e 72 cd cd cd d7 e3 46 09 41 4b dc 34 ec 44 10 3c 16 58 29 45 dc 61 0f 45 ba 6b 2c 81 92 64 fe 07 d5 0e 89 c9 e6 1c c1 1e 21 0e 89 48 4e ff 00 3c 20 6d 60 1b b8 4c 14 a3 dc eb 37 cb 6a 09 d5 0e 06 b4 5f 4f 64 9d c4 43 8d 8f 7f a3 27 79 a0 3c 1e 5a 2d 3b a3 92 16 85 bb 93 5b 74 cd 94 b6 58 83 72 84 e8 bf f6 b7 5e 4f 53 62 b7 be fb 80 3c 1e 58 71 79 1a 7c a0 49 76 39 d4 83 bd c4 cc 2f f4 d6 79 a4 80 25 6c 73 5d 8b 77 d4 b3 cf 70 3c 26 c9 83 4b bb e0 0c 09 76 64 8a 92 4f 2c 84 01 50 9b cb d6 4b e9 45 76 9a 37 43 47 52 ac e0 3c 1a 62 79 24 ea 06 55 21 ff 6b b5 df 7c 13 5e 42 16 13 19 9a de 17 4a 1e c8 66 f0 50 31 4e 20 3c 28 c8 1e 4b bc 8d 10 f0 ee 88 cb 13 01 5b 85 48 8c af 40 d9 73 a7 75 5e 36 c2 72 ec 14 92 40 3c 24 42 78 2b b7 38 03 a1 ff b4 66 ff 56 5b 1a a2 d4 89 4e 11 15 af 23 ae 7a 56 2b 88 83 6e e0 3c 1e 54 16 57 ec 78 01 c1 fe c2 9c 7a 04 63 8a 1c 42 d9 d3 b6 38 1e a8 3a 3c 03 a0 29 f3 15 60 3c 20 73 61 21 d8 f2 0b 61 fe 16 2a af 26 a9 02 0a de 88 79 98 c9 22 ab 40 45 e9 0b 91 10 b1 70 3c 1c 53 81 50 f1 4c 21 c1 fe d5 1b 3e d8 16 a4 60 73 95 12 fe 30 02 71 84 20 a5 1f 58 86 c0 30 3c 18 7a 63 2f ff 76 05 f4 ab c4 e5 70 29 dd 8a 74 f5 41 6a 88 d9 ce 2a d2 cb 54 bf 5f c1 d6 50 3c 2e 52 26 46 e9 84 15 94 a3 76 ec 97 fb 00 98 37 34 08 6c 52 0a 33 a1 ab a0 fb 1d 2f 6e 2b 00 3c e0 d8 74 27 ff 2e 41 25 ba ea 3a 74 35 db bf 19 e4 03 c0 78 87 7f be d3 7e 31 36 a6 9c e8 e0 3c 1c 63 7d 4b 8d d5 01 f8 63 f4 4b 13 98 33 47 ba a0 78 e5 76 f9 e4 ef 18 e8 5b a4 9c 1a e9 40 3c d8 c8 64 1b da ea 11 f0 ef 76 eb 15 ad 4d 24 64 30 6b a1 7a 07 ef 25 ba eb ae 6e 9f 3f 23 
@@ -829,11 +832,16 @@ public class Form1 : System.Windows.Forms.Form
             case 45:
                 //textBox2.Text += ("45\r\n");
                 break;
+            case 47:
+                //textBox2.Text += ("45\r\n");
+                break;
             default:
                 break;
         }
 
     }
+
+
     void RcvPkt(object sender, System.Timers.ElapsedEventArgs e)
     {
         try
@@ -856,6 +864,10 @@ public class Form1 : System.Windows.Forms.Form
                     {
                         case 44:
                             HandleVoiceMessage(ReceivedByte);
+                            break;
+                        case 47:
+                            HandlePhoneBook(ReceivedByte);
+                            //textBox2.Text += ("45\r\n");
                             break;
                         case 0:
                            
