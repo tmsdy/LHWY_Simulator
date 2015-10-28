@@ -25,7 +25,7 @@ public class Form1 : System.Windows.Forms.Form
     IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("3000"));
     //static IPAddress HostIP = IPAddress.Parse("183.62.138.3"); //14.152.107.119
     //IPEndPoint ChatServer = new IPEndPoint(HostIP, Int32.Parse("5566"));
-
+    static int iPktCommandIndex = 4;//PGD是5  LHWY是4
     private Socket ChatSocket;
     private bool flag = true;
 	private System.Windows.Forms.TextBox textBox1;
@@ -39,7 +39,7 @@ public class Form1 : System.Windows.Forms.Form
 
     private Button button1;
     private bool g_start = false;
-    private bool keepalivethread_shouldstop = false;
+    //private bool keepalivethread_shouldstop = false;
     private RadioButton radioButton1;
     private RadioButton radioButton2;
     private CheckBox checkBox1;
@@ -47,7 +47,7 @@ public class Form1 : System.Windows.Forms.Form
     private RadioButton radioButton3;
     private Button button4;
     public System.Threading.Thread thread;
-
+    public System.Threading.Thread threadRecvPkt;
     public double iVoiceMaxPktLenth = 900.00;
     private string sIMEI = "";
     private int iMaxPktLenth = 1024;
@@ -101,9 +101,15 @@ public class Form1 : System.Windows.Forms.Form
             //thread.Name= "keepalivethread";
             thread.Start();
 
-            RcvPktTimer.Elapsed += new System.Timers.ElapsedEventHandler(RcvPkt);
-            RcvPktTimer.Interval = 100;
-            RcvPktTimer.Enabled = true;
+            threadRecvPkt = new Thread(new ThreadStart(RcvPkt));
+ 
+            threadRecvPkt.Start();
+
+
+            //RcvPktTimer.Elapsed += new System.Timers.ElapsedEventHandler(RcvPkt);
+            //RcvPktTimer.Interval = 1000;
+            //RcvPktTimer.Enabled = true;
+
             statusBar1.Text = "连接成功  " + ChatServer.Address.ToString() + ":" + ChatServer.Port;
 
         }
@@ -857,7 +863,7 @@ public class Form1 : System.Windows.Forms.Form
     }
     int GetPktHeader(string ReceivedStr)
     {
-        string head = ReceivedStr.Substring(4,2);
+        string head = ReceivedStr.Substring(iPktCommandIndex,2);
         int iRet = Convert.ToInt32(head);
         return iRet;
     }
@@ -888,19 +894,19 @@ public class Form1 : System.Windows.Forms.Form
 
     }
 
-
-    void RcvPkt(object sender, System.Timers.ElapsedEventArgs e)
+    //object sender, System.Timers.ElapsedEventArgs e
+    void RcvPkt()
     {
         try
         {
-            if (ChatSocket.Connected && (flag))
+            while (ChatSocket.Connected && (flag))
             {
 
 
 
                 Byte[] ReceivedByte = new Byte[iMaxPktLenth];
                 ChatSocket.Receive(ReceivedByte, ReceivedByte.Length, 0);
-                //string ReceivedStr=System.Text.Encoding.BigEndianUnicode.GetString(ReceivedByte);
+ 
                 string ReceivedStr = System.Text.Encoding.ASCII.GetString(ReceivedByte);
                 string str = DateTime.Now.ToString("G");
                 //textBox2.AppendText("\r\n");
@@ -933,19 +939,19 @@ public class Form1 : System.Windows.Forms.Form
 
 
             }
-            else
-            {
-                /*如果socket断开 则重连*/
-                if (!ChatSocket.Connected)
-                {
-                    textBox2.AppendText("接收报文：由于socket断开，重连" + "\r\n");
-                    ChatSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    ChatSocket.Connect(ChatServer);
-                    statusBar1.Text = "连接成功";
-                    RcvPktTimer.Enabled = true;
+            //else
+            //{
+            //    /*如果socket断开 则重连*/
+            //    if (!ChatSocket.Connected)
+            //    {
+            //        textBox2.AppendText("接收报文：由于socket断开，重连" + "\r\n");
+            //        ChatSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //        ChatSocket.Connect(ChatServer);
+            //        statusBar1.Text = "连接成功";
+            //        RcvPktTimer.Enabled = true;
 
-                }
-            }
+            //    }
+            //}
         }
         catch (Exception ee)
         { 
@@ -1002,7 +1008,7 @@ public class Form1 : System.Windows.Forms.Form
                 ChatSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 ChatSocket.Connect(ChatServer);
                 /*启动收包定时器*/
-                RcvPktTimer.Enabled = true;
+                //RcvPktTimer.Enabled = true;
 
             }
 
@@ -1018,7 +1024,7 @@ public class Form1 : System.Windows.Forms.Form
             //textBox2.AppendText("心跳线程状态 " + thread.ThreadState + "\r\n");
             if (ThreadState.Stopped == thread.ThreadState)
             {
-                keepalivethread_shouldstop = false;
+                //keepalivethread_shouldstop = false;
                 thread = new Thread(new ThreadStart(keepalivethread));
                 thread.Start(); 
             }
@@ -1092,7 +1098,7 @@ public class Form1 : System.Windows.Forms.Form
     {
         try
         {
-            while (!keepalivethread_shouldstop)
+            while (true)
             {
                 if (g_start)
                 {
@@ -1111,7 +1117,7 @@ public class Form1 : System.Windows.Forms.Form
                     EventSleep(1); 
                 }
             }
-            Thread.CurrentThread.Abort();
+            //Thread.CurrentThread.Abort();
         }
         catch (Exception ee)
         { statusBar1.Text = ("发送心跳 " + ee.Message + "\r\n"); }
@@ -1134,10 +1140,10 @@ public class Form1 : System.Windows.Forms.Form
             string offline = "SWAP20#";
             SendPacket(offline);
             g_start = false;
-            keepalivethread_shouldstop = true;
+            //keepalivethread_shouldstop = true;
             thread.Abort();
-            RcvPktTimer.Enabled = false;
-            RcvPktTimer.Close();
+            //RcvPktTimer.Enabled = false;
+            //RcvPktTimer.Close();
             ChatSocket.Close();
 
         }
@@ -1151,11 +1157,11 @@ public class Form1 : System.Windows.Forms.Form
         try
         {
 
-            RcvPktTimer.Enabled = false;
-            RcvPktTimer.Close();
+            //RcvPktTimer.Enabled = false;
+            //RcvPktTimer.Close();
 
             g_start = false;
-            keepalivethread_shouldstop = true;
+            //keepalivethread_shouldstop = true;
             thread.Abort();
             
             ChatSocket.Close();
@@ -1251,6 +1257,7 @@ public class Form1 : System.Windows.Forms.Form
             Directory.CreateDirectory(sPath);
         }
 
+
     }
 
     private void button4_Click(object sender, EventArgs e)
@@ -1268,10 +1275,14 @@ public class Form1 : System.Windows.Forms.Form
 
                 statusBar1.Text = "连接成功  " + ChatServer.Address.ToString() + ":" + ChatServer.Port;
                 /*启动收包定时器*/
-                RcvPktTimer.Enabled = true;
-
+                //RcvPktTimer.Enabled = true;
+                threadRecvPkt = new Thread(new ThreadStart(RcvPkt));
+                threadRecvPkt.Start();
+                thread = new Thread(new ThreadStart(keepalivethread));
+                thread.Start();
             }
 
+            //如果勾选了发心跳，则开始发心跳
             if (checkBox1.Checked)
             {
                 g_start = true;
@@ -1282,12 +1293,12 @@ public class Form1 : System.Windows.Forms.Form
             }
 
             //textBox2.AppendText("心跳线程状态 " + thread.ThreadState + "\r\n");
-            if (ThreadState.Stopped == thread.ThreadState)
-            {
-                keepalivethread_shouldstop = false;
-                thread = new Thread(new ThreadStart(keepalivethread));
-                thread.Start();
-            }
+            //if (ThreadState.Stopped == thread.ThreadState)
+            //{
+            //    keepalivethread_shouldstop = false;
+            //    thread = new Thread(new ThreadStart(keepalivethread));
+            //    thread.Start();
+            //}
 
             string sLogininPkt = "SWAP00" + sIMEI + "#";
             SendPacket(sLogininPkt);
@@ -1330,7 +1341,9 @@ public class Form1 : System.Windows.Forms.Form
                 ChatSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 ChatSocket.Connect(ChatServer);
                 /*启动收包定时器*/
-                RcvPktTimer.Enabled = true;
+                //RcvPktTimer.Enabled = true;
+                threadRecvPkt = new Thread(new ThreadStart(RcvPkt));
+                threadRecvPkt.Start();
 
             }
 
@@ -1346,7 +1359,7 @@ public class Form1 : System.Windows.Forms.Form
             //textBox2.AppendText("心跳线程状态 " + thread.ThreadState + "\r\n");
             if (ThreadState.Stopped == thread.ThreadState)
             {
-                keepalivethread_shouldstop = false;
+                //keepalivethread_shouldstop = false;
                 thread = new Thread(new ThreadStart(keepalivethread));
                 thread.Start();
             }
@@ -1498,10 +1511,10 @@ public class Form1 : System.Windows.Forms.Form
             string offline = "SWAP36#";
             SendPacket(offline);
             g_start = false;
-            keepalivethread_shouldstop = true;
+            //keepalivethread_shouldstop = true;
             thread.Abort();
-            RcvPktTimer.Enabled = false;
-            RcvPktTimer.Close();
+            //RcvPktTimer.Enabled = false;
+            //RcvPktTimer.Close();
             ChatSocket.Close();
 
         }
@@ -1608,7 +1621,7 @@ public class Form1 : System.Windows.Forms.Form
 
     private void checkBox7_CheckedChanged(object sender, EventArgs e)
     {
-        RcvPktTimer.Enabled = false;
+        //RcvPktTimer.Enabled = false;
          
         ChatSocket.Close();
         if (checkBox7.Checked)
