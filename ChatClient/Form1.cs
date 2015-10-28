@@ -17,7 +17,7 @@ namespace ChatClient
 public class Form1 : System.Windows.Forms.Form
 {
     private string sCompany = "力豪";
-    private string sVer = "模拟登录 V1.0.8     ";
+    private string sVer = "模拟登录 V1.0.9     ";
     private IContainer components = null;
 
 
@@ -746,9 +746,56 @@ public class Form1 : System.Windows.Forms.Form
         fs.Close();
          
     }
+
+//53 57 42 50 34 37 30 30 30 30 30 30 2c 	---A-----  SWBP47000000,
+//54 df 54 df 55 ef 						---U-----  哟哟嗯
+//ff ff									    ---B-----  联系人结束标志符
+//7c 31 38 36 38 30 36 36 30 39 38 37 2c 	---A-----  |18680660987,
+//00 46 00 67 00 64 00 68 00 66 			---U-----  Fgdhf
+//ff ff									    ---B-----  联系人结束标志符
+//7c 31 33 34 32 34 37 30 37 33 33 34 2c 	---A-----  |13424707334,
+//53 d4 53 d4 							    ---U-----  叔叔
+//ff ff									    ---B-----  联系人结束标志符
+//7c 31 33 36 33 32 38 34 37 39 33 39 23    ---A-----  |13632847939#
     void HandlePhoneBook(byte[] bPkt)
     {
-        
+        string sOutput = "";
+        int iLenthofChar = 1;
+        for (int i = 0; i < bPkt.Length; )
+        {
+            if ((bPkt[i] == 0xFF) && (bPkt[i + 1] == 0xFF))
+            {
+                sOutput += "FFFF";
+                i += 2;
+                iLenthofChar = 1;
+                continue;
+            }
+            else if (iLenthofChar == 1)
+            {
+                byte[] bAsc = new byte[1];
+                bAsc[0] = bPkt[i];
+                sOutput += Encoding.ASCII.GetString(bAsc);
+
+                if (bPkt[i] == 0x2C)
+                    iLenthofChar = 2;
+                i++;
+                continue;
+            }
+            else if (iLenthofChar == 2)
+            {
+                byte[] b = new byte[2];
+                b[0] = bPkt[i + 1];
+                b[1] = bPkt[i];
+                sOutput += Encoding.Unicode.GetString(b);
+                i += 2;
+                continue;
+
+            }
+
+        }
+        //显示收到的内容：
+        textBox2.AppendText(DateTime.Now.ToString("G") + ": ↓" + sOutput);
+        textBox2.AppendText("\r\n");
     }
 
 //    53 57 42 50 30 30 2c 32 30 31 35 30 38 32 31 31 32 33 37 33 36 23 
