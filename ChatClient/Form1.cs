@@ -17,7 +17,7 @@ namespace ChatClient
 public class Form1 : System.Windows.Forms.Form
 {
     private string sCompany = "力豪";
-    private string sVer = "模拟登录 V1.1.0     ";
+    private string sVer = "模拟登录 V1.1.1     ";
     private IContainer components = null;
 
     //static IPAddress HostIP = IPAddress.Parse("192.168.100.5"); //14.152.107.119
@@ -577,6 +577,7 @@ public class Form1 : System.Windows.Forms.Form
             // 
             // textBox8
             // 
+            this.textBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox8.Location = new System.Drawing.Point(600, 577);
             this.textBox8.Multiline = true;
             this.textBox8.Name = "textBox8";
@@ -900,25 +901,48 @@ public class Form1 : System.Windows.Forms.Form
     void ParsePkt(byte[] bPkt)
     {
         string ReceivedStr = System.Text.Encoding.ASCII.GetString(bPkt);
-        switch (GetPktHeader(ReceivedStr))
+        string str = DateTime.Now.ToString("G");
+        if (ReceivedStr[0] != '\0')
         {
-            case 0:
-                //textBox2.Text += ("00\r\n");
-                break;
-            case 1:
-                //textBox2.Text += ("01\r\n");
-                break;
-            case 44:
-                HandleVoiceMessage(bPkt);
-                break;
-            case 45:
-                //textBox2.Text += ("45\r\n");
-                break;
-            case 47:
-                //textBox2.Text += ("45\r\n");
-                break;
-            default:
-                break;
+            int iMultiPktIndex = ReceivedStr.LastIndexOf("SWBP");
+            if (iMultiPktIndex > 4 )
+            {
+                //此分支表示有粘包
+                Byte[] FirstPktByte = new Byte[iMaxPktLenth];
+                Array.Copy(bPkt, 0, FirstPktByte, 0, iMultiPktIndex);
+
+                Byte[] SecondPktByte = new Byte[iMaxPktLenth];
+                Array.Copy(bPkt, iMultiPktIndex, SecondPktByte, 0, bPkt.Length - iMultiPktIndex);
+
+                ParsePkt(FirstPktByte);
+
+                ParsePkt(SecondPktByte);
+
+            }
+            else
+            {
+                switch (GetPktHeader(ReceivedStr))
+                {
+                    case 44:
+                        HandleVoiceMessage(bPkt);
+                        break;
+                    case 47:
+                        HandlePhoneBook(bPkt);
+                        //textBox2.Text += ("45\r\n");
+                        break;
+                    case 0:
+
+                    case 1:
+
+                    case 45:
+                    default:
+                        textBox2.AppendText(str + ": ↓" + ReceivedStr);
+                        textBox2.AppendText("\r\n");
+                        break;
+                }
+            }
+
+
         }
 
     }
@@ -935,35 +959,9 @@ public class Form1 : System.Windows.Forms.Form
 
                 Byte[] ReceivedByte = new Byte[iMaxPktLenth];
                 ChatSocket.Receive(ReceivedByte, ReceivedByte.Length, 0);
- 
-                string ReceivedStr = System.Text.Encoding.ASCII.GetString(ReceivedByte);
-                string str = DateTime.Now.ToString("G");
-                //textBox2.AppendText("\r\n");
+   
                 Thread.Sleep(100);
-                if (ReceivedStr[0] != '\0')
-                {
-                    switch (GetPktHeader(ReceivedStr))
-                    {
-                        case 44:
-                            HandleVoiceMessage(ReceivedByte);
-                            break;
-                        case 47:
-                            HandlePhoneBook(ReceivedByte);
-                            //textBox2.Text += ("45\r\n");
-                            break;
-                        case 0:
-                           
-                        case 1:
-
-                        case 45:
-                        default:
-                            textBox2.AppendText(str + ": ↓" + ReceivedStr);
-                            textBox2.AppendText("\r\n");
-                            break;
-                    }
-
-                    //ParsePkt(ReceivedByte);
-                }
+                ParsePkt(ReceivedByte);
                 
 
 
@@ -1285,6 +1283,7 @@ public class Form1 : System.Windows.Forms.Form
     {
         this.radioButton2.Checked = true;
         this.trackBar2.Value = 2;
+        this.textBox3.MaxLength = 999999;
         //this.textBox3.AppendText(GetHourMinSec());
         //sIMEI = this.textBox1.Text;
         string sPath = Application.StartupPath + @"\voicedata\";
