@@ -17,7 +17,7 @@ namespace ChatClient
 public class Form1 : System.Windows.Forms.Form
 {
     private string sCompany = "力豪";
-    private string sVer = "模拟登录 V1.1.1     ";
+    private string sVer = "模拟登录 V1.1.2     ";
     private IContainer components = null;
 
     //static IPAddress HostIP = IPAddress.Parse("192.168.100.5"); //14.152.107.119
@@ -30,6 +30,10 @@ public class Form1 : System.Windows.Forms.Form
     static int iPktCommandIndex = 4;//PGD是5  LHWY是4
     private Socket ChatSocket;
     private bool flag = true;
+
+    string sLogFileName = "";
+    string slogfilepath = "";
+
 	private System.Windows.Forms.TextBox textBox1;
     private System.Windows.Forms.TextBox textBox2;
 	private System.Windows.Forms.Button button2;
@@ -726,6 +730,51 @@ public class Form1 : System.Windows.Forms.Form
 
     }
 
+    public void WriteLogFile(string input)
+    { 
+        /**/
+        ///定义文件信息对象
+
+        FileInfo finfo = new FileInfo(slogfilepath);
+
+        if (!finfo.Exists)
+        {
+            FileStream fs;
+            fs = File.Create(slogfilepath);
+            fs.Close();
+            finfo = new FileInfo(slogfilepath);
+        }
+
+
+        /**/
+        ///创建只写文件流
+
+        using (FileStream fs = finfo.OpenWrite())
+        {
+            /**/
+            ///根据上面创建的文件流创建写数据流
+            StreamWriter w = new StreamWriter(fs);
+
+            /**/
+            ///设置写数据流的起始位置为文件流的末尾
+            w.BaseStream.Seek(0, SeekOrigin.End);
+             
+
+            /**/
+            ///写入日志内容并换行
+            w.Write(input + "\r\n");
+             
+
+            /**/
+            ///清空缓冲区内容，并把缓冲区内容写入基础流
+            w.Flush();
+
+            /**/
+            ///关闭写数据流
+            w.Close();
+        }
+
+    }
     /*发包函数封装*/
     private void SendPacket(string sPkt)
     {
@@ -736,8 +785,11 @@ public class Form1 : System.Windows.Forms.Form
             ChatSocket.Send(SentByte, SentByte.Length, 0);
 
             string str = DateTime.Now.ToString("G");
-            textBox2.AppendText(str + ": ↑" + sPkt);
+            string sDisplayText = str + ": ↑" + sPkt;
+            textBox2.AppendText(sDisplayText);
             textBox2.AppendText("\r\n");
+            //添加日志记录
+            WriteLogFile(sDisplayText);
 
         }
         catch (Exception ee)
@@ -745,7 +797,7 @@ public class Form1 : System.Windows.Forms.Form
     }
 
     public  void write2file(string filename, int indexofCurrentPktCount, byte[] sNewVoice)
-    {
+    { 
         string filepath = Application.StartupPath + @"\voicedata\" + filename + ".amr";
         FileStream fs = null;
         //int offset = 0;
@@ -827,8 +879,10 @@ public class Form1 : System.Windows.Forms.Form
 
         }
         //显示收到的内容：
+        sOutput = sOutput.TrimEnd('\0');
         textBox2.AppendText(DateTime.Now.ToString("G") + ": ↓" + sOutput);
         textBox2.AppendText("\r\n");
+        WriteLogFile(DateTime.Now.ToString("G") + ": ↓" + sOutput);
     }
 
 //    53 57 42 50 30 30 2c 32 30 31 35 30 38 32 31 31 32 33 37 33 36 23 
@@ -857,6 +911,16 @@ public class Form1 : System.Windows.Forms.Form
         //显示收到的内容：
         textBox2.AppendText( DateTime.Now.ToString("G") + ": ↓" + ReceivedStr.Substring(0, indexofData) + "语音数据");
         textBox2.AppendText("\r\n");
+
+        //添加日志
+        WriteLogFile(DateTime.Now.ToString("G") + ": ↓" + ReceivedStr.Substring(0, indexofData) + "语音数据");
+        StringBuilder sb = new StringBuilder();
+
+        for (int j = 0; j <= indexofEnd; j++)
+        {
+            sb.Append(bPkt[j].ToString("x2"));
+        }
+        WriteLogFile(sb.ToString());
 
         string sPkt = string.Empty;
         //判断是否可以接收语音
@@ -901,6 +965,8 @@ public class Form1 : System.Windows.Forms.Form
     void ParsePkt(byte[] bPkt)
     {
         string ReceivedStr = System.Text.Encoding.ASCII.GetString(bPkt);
+        ReceivedStr = ReceivedStr.TrimEnd('\0');
+ 
         string str = DateTime.Now.ToString("G");
         if (ReceivedStr[0] != '\0')
         {
@@ -938,6 +1004,8 @@ public class Form1 : System.Windows.Forms.Form
                     default:
                         textBox2.AppendText(str + ": ↓" + ReceivedStr);
                         textBox2.AppendText("\r\n");
+                        //添加收包记录日志
+                        WriteLogFile(str + ": ↓" + ReceivedStr);
                         break;
                 }
             }
@@ -1012,8 +1080,17 @@ public class Form1 : System.Windows.Forms.Form
             int indexofData = ReceivedStr.IndexOf(',', indexofPktLenth) + 1;//46
 
             textBox2.AppendText(str + ": ↑" + ReceivedStr.Substring(0, indexofData) + "语音数据");
-
             textBox2.AppendText("\r\n");
+            //添加日志
+            WriteLogFile(str + ": ↑" + ReceivedStr.Substring(0, indexofData) + "语音数据");
+            StringBuilder sb = new StringBuilder();
+
+            for (int j = 0; j < b.Length; j++)
+            {
+                sb.Append(b[j].ToString("x2"));
+            }
+            WriteLogFile(sb.ToString());
+
 
         }
         catch (Exception ee)
@@ -1278,7 +1355,7 @@ public class Form1 : System.Windows.Forms.Form
             g_start = false;
         }
     }
-
+    		 
     private void Form1_Load(object sender, EventArgs e)
     {
         this.radioButton2.Checked = true;
@@ -1291,7 +1368,24 @@ public class Form1 : System.Windows.Forms.Form
         {
             Directory.CreateDirectory(sPath);
         }
+        string sLogPath = Application.StartupPath + @"\logs\";
+        if (!Directory.Exists(sLogPath))
+        {
+            Directory.CreateDirectory(sLogPath);
+        }
 
+        sLogFileName = DateTime.Now.ToString("yyMMddHHmmss");
+        slogfilepath = Application.StartupPath + @"\logs\" + sLogFileName + ".txt";
+
+        FileStream fsLogFile = null;
+        //int offset = 0;
+        if (!File.Exists(slogfilepath))
+        {
+            //文件不存在
+            fsLogFile = File.Create(slogfilepath);
+            fsLogFile.Close();
+
+        }
 
     }
 
